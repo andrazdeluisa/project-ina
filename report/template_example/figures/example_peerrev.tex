@@ -1,0 +1,76 @@
+\documentclass[tikzpicture]{standalone}
+
+\usepackage{../tikz-network}
+\usepackage{relsize}
+
+\definecolor{gray}{RGB}{66,66,66}
+\definecolor{blue}{RGB}{27,72,105}
+
+%p = 0.1
+%
+%-1.     6256	cits=14	phi=0.047467	"COLE_S(1967)32:377"
+%0.    43718	cits=0	phi=0.047467	"GARCIA_J(2015)104:361"
+%1.    16145	cits=5	phi=0.018395	"LEE_C(2013)64:2"
+%2.     1635	cits=73	phi=0.015952	"ZUCKERMA_H(1971)9:66"
+%3.     4329	cits=23	phi=0.012644	"CAMPANAR_J(1998)19:181"
+%4.     2980	cits=34	phi=0.009234	"CRANE_D(1967)2:195"
+%5.     8055	cits=15	phi=0.009018	"CAMPANAR_J(1998)19:277"
+%6.     1610	cits=26	phi=0.008263	"GOTTFRED_S(1978)33:920"
+%7.     8183	cits=6	phi=0.007915	"BORNMANN_L(2011)45:199"
+%8.    27200	cits=1	phi=0.007113	"BORNMANN_L(2012)91:857"
+%9.    36633	cits=1	phi=0.00675	"BORNMANN_L(2014)65:209"
+%10.     4223	cits=29	phi=0.005073	"MERTON_R(1968)159:56"
+
+\newcommand{\inode}[4]{\Vertex[x=#1,y=#2,size=0.5,color=white,label=\textbf{\textsf{\Large #4}}]{#3}}
+\newcommand{\xnode}[5]{\Vertex[x=#1,y=#2,size=#5,color=white,label=\textbf{\textsf{\LARGE {\relscale{#5}#4}}}]{#3}}
+\newcommand{\hnode}[4]{\Vertex[x=#1,y=#2,size=1,color={255,139,0},RGB,label=\textbf{\textsf{\LARGE #4}}]{#3}}
+\newcommand{\stnode}[4]{\Vertex[x=#1,y=#2,size=1,color={27,72,105},opacity=0.5,RGB,label=\textbf{\textsf{\LARGE #4}}]{#3}}
+\SetEdgeStyle[Arrow=-{Latex[length=3mm]}]
+\newcommand{\dedge}[2]{\Edge[lw=1,color=gray,Direct](#1)(#2)}
+
+\begin{document}
+	\begin{tikzpicture}
+  \stnode{0}{1.25*15}{v6256}{Cole (1967)}
+  \stnode{0}{1.25*0}{v43718}{Garcia (2015)}
+  \xnode{0}{1.25*3}{v16145}{Lee (2013)}{1}
+  \xnode{4}{1.25*10}{v1635}{Zuckerman (1971)}{0.9}
+  \xnode{-4}{1.25*7}{v4329}{Campanario (1998)}{0.8}
+  \xnode{0}{1.25*13}{v2980}{Crane (1967)}{0.7}
+  \xnode{3}{1.25*7}{v8055}{Campanario (1998)}{0.7}
+  \xnode{-4}{1.25*9}{v1610}{Gottfredson (1978)}{0.6}
+  \xnode{0}{1.25*6}{v8183}{Bornmann (2011)}{0.6}
+  \xnode{4}{1.25*5}{v27200}{Bornmann (2012)}{0.5}
+  \xnode{-3}{1.25*2}{v36633}{Bornmann (2014)}{0.45}
+  \xnode{-3}{1.25*12}{v4223}{Merton (1968)}{0.4}
+  \dedge{v4329}{v2980}
+  \dedge{v4329}{v1610}
+  \dedge{v4329}{v1635}
+  \dedge{v8183}{v8055}
+  \dedge{v8183}{v4329}
+  \dedge{v8183}{v6256}
+  \dedge{v8183}{v4223}
+  \dedge{v8183}{v1635}
+  \dedge{v8055}{v2980}
+  \dedge{v8055}{v1635}
+  \dedge{v16145}{v8183}
+  \dedge{v16145}{v8055}
+  \dedge{v16145}{v4329}
+  \dedge{v16145}{v1610}
+  \dedge{v16145}{v4223}
+  \dedge{v27200}{v8183}
+  \dedge{v27200}{v1635}
+  \dedge{v36633}{v8183}
+  \dedge{v36633}{v16145}
+  \dedge{v1635}{v6256}
+  \dedge{v1635}{v2980}
+  \dedge{v4223}{v6256}
+  \dedge{v1610}{v6256}
+  \dedge{v2980}{v6256}
+  \dedge{v43718}{v8055}
+  \dedge{v43718}{v16145}
+  \dedge{v43718}{v4329}
+  \dedge{v43718}{v27200}
+  \dedge{v43718}{v36633}
+\end{tikzpicture}
+\end{document}
+

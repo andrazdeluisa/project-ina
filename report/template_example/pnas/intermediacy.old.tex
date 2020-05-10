@@ -1,0 +1,585 @@
+\documentclass[9pt,twocolumn,twoside,lineno]{pnas-alt}
+
+\templatetype{pnasresearcharticle}
+
+% % % % % % % % % % % % %
+%
+%            PACKAGES
+%
+% % % % % % % % % % % % %
+
+\usepackage{amsthm,amssymb,amsmath}
+\usepackage{tikz-network}
+\usepackage{sansmath}
+\usepackage{xspace}
+\usepackage{lipsum}
+\usepackage{xcolor}
+
+\usepackage{coffee4}
+
+% % % % % % % % % % % % %
+%
+%            SETTINGS
+%
+% % % % % % % % % % % % %
+
+\graphicspath{{../figures/}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\definecolor{gray}{RGB}{66,66,66}
+\definecolor{blue}{RGB}{27,72,105}
+\definecolor{orange}{RGB}{255,139,0}
+
+% \usepackage[active,tightpage,floats]{preview}
+% \PreviewBorder=2pt\relax
+
+% % % % % % % % % % % % %
+%
+%            MACROS
+%
+% % % % % % % % % % % % %
+
+\newcommand{\secref}[1]{Section~\{sec:#1\}\xspace}
+\newcommand{\figref}[1]{Fig.~\ref{fig:#1}\xspace}
+\newcommand{\subfigref}[2]{Fig.~\ref{fig:#1}#2\xspace}
+\newcommand{\tblref}[1]{Table~\ref{tbl:#1}\xspace}
+\renewcommand{\eqref}[1]{Eq.~\ref{eq:#1}\xspace}
+\newcommand{\theref}[1]{Theorem~\ref{the:#1}\xspace}
+\newcommand{\therefs}[2]{Theorems~\ref{the:#1} and~\ref{the:#2}\xspace}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\renewcommand{\O}{\mathcal{O}}
+
+\renewcommand{\etal}{~\emph{et al.}\xspace}
+
+\newcommand{\refs}{{\bf\color{orange}[REFS]}}
+\newcommand{\todo}{{\bf\color{orange}TODO}}
+\newcommand{\lips}[1]{{\bf\color{orange}TEXT}~\emph{\color{blue}\lipsum[#1]}}
+\newcommand{\redo}[1]{{\bf\color{orange}REDO}~{\color{blue}#1}}
+
+\newcommand{\stnode}[3]{\Vertex[x=#1,y=#2,color={27,72,105},opacity=0.5,RGB,Math,IdAsLabel]{#3}}
+\newcommand{\ijknode}[3]{\Vertex[x=#1,y=#2,size=0.5,color={255,139,0},opacity=1,RGB,Math,IdAsLabel]{#3}}
+\newcommand{\xnode}[4]{\Vertex[x=#1,y=#2,size=#3,color={255,139,0},opacity=1,RGB,Math,IdAsLabel]{#4}}
+\newcommand{\lnode}[4]{\Vertex[x=#1,y=#2,size=0.5,color=white,Math,label=#4]{#3}}
+\newcommand{\enode}[3]{\Vertex[x=#1,y=#2,size=0.5,color=white,Math,IdAsLabel]{#3}}
+\newcommand{\anode}[3]{\Vertex[x=#1,y=#2,size=0.4,color=white,Math]{#3}}
+\newcommand{\pledge}[2]{\Edge[lw=0.8,color=black,Direct,Math,label=p](#1)(#2)}
+\newcommand{\pedge}[2]{\Edge[lw=1,color=black,Direct,Math,label=p](#1)(#2)}
+\newcommand{\xedge}[3]{\Edge[lw=1,color=black,distance=0.4,Direct,Math,label=#3](#1)(#2)}
+\newcommand{\eedge}[2]{\Edge[lw=1,color=black,Direct,Math](#1)(#2)}
+
+% % % % % % % % % % % % %
+%
+%            TITLE
+%
+% % % % % % % % % % % % %
+
+\title{Intermediacy of publications}
+
+% % % % % % % % % % % % %
+%
+%            AUTHORS
+%
+% % % % % % % % % % % % %
+
+\author[a,1]{Lovro \v{S}ubelj}
+\author[b]{Ludo Waltman} 
+\author[b]{Vincent Traag}
+\author[b]{Nees Jan van Eck}
+
+\affil[a]{University of Ljubljana, Faculty of Computer and Information Science, Ve\v{c}na pot 113, SI-1000 Ljubljana, Slovenia}
+\affil[b]{Leiden University, Centre for Science and Technology Studies, P.O.\ Box 905, 2300 AX Leiden, The Netherlands}
+
+\leadauthor{\v{S}ubelj} 
+
+\authorcontributions{Author contributions: L.\v{S}., L.W., V.T., and N.J.E.\ designed research; L.\v{S}., L.W., V.T., and N.J.E.\ performed research; L.\v{S}., V.T., and N.J.E.\ analyzed data; and L.W.\ wrote the paper.}
+\authordeclaration{The authors declare no conflict of interest.}
+\correspondingauthor{\textsuperscript{1}To whom correspondence should be addressed. E-mail: lovro.subelj@fri.uni-lj.si.}
+
+% % % % % % % % % % % % %
+%
+%            ABSTRACT
+%
+% % % % % % % % % % % % %
+
+\begin{abstract}
+Citation networks of scientific publications offer fundamental insights into the structure and development of scientific knowledge. We propose a new indicator, referred to as intermediacy, for tracing the dissemination of scientific knowledge over time. Given two publications, an older and a more recent one, intermediacy identifies publications that seem to play a major role in the intellectual development from the older to the more recent publication. The identified publications are important in connecting the older and the more recent publication in the citation network. After providing a formal definition of intermediacy, we study its mathematical properties. We then present two empirical analyses, one in which intermediacy is used to trace intellectual developments at the interface between the community detection and the scientometric literature and one in which intermediacy is applied to the literature on peer review. We show both mathematically and empirically how intermediacy differs from main path analysis, which is the most popular approach for analyzing intellectual developments in citation networks. Main path analysis tends to favor longer paths over shorter ones, whereas intermediacy has the opposite tendency. Compared to main path analysis, our conclusion is that intermediacy offers a more principled approach for tracing the dissemination of scientific knowledge.
+\end{abstract}
+
+\significancestatement{Researchers spend a lot of time keeping track of the literature in their field. Computational methods can be used to increase the efficiency with which researchers study the literature. We propose a method called intermediacy that enables tracing the dissemination of scientific knowledge over time. Based on citation relations, intermediacy aims to identify publications that play a major role in the intellectual development from an older publication to a more recent one. Main path analysis currently is the most commonly used approach for addressing this problem. We show the advantages of intermediacy over main path analysis. When implemented in interactive search interfaces, intermediacy may help to significantly increase the efficiency with which researchers study the literature in their field.
+% Authors must submit a 120-word maximum statement about the significance of their research paper written at a level understandable to an undergraduate educated scientist outside their field of speciality. The primary goal of the Significance Statement is to explain the relevance of the work in broad context to a broad readership. The Significance Statement appears in the paper itself and is required for all research papers.
+}
+
+\keywords{intermediacy $|$ publication $|$ citation network $|$ knowledge dissemination $|$ main path analysis}
+
+\dates{This manuscript was compiled on \today}
+\doi{\url{arxiv.org}}
+
+% % % % % % % % % % % % %
+%
+%            DOCUMENT
+%
+% % % % % % % % % % % % %
+
+\begin{document}
+
+\maketitle
+\thispagestyle{firststyle}
+\ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
+
+
+% % % % % % % % % % % % %
+%
+%            INTRODUCTION
+%
+% % % % % % % % % % % % %
+
+\cofeAm{0.25}{0.8}{0}{4cm}{8cm}
+
+% \section*{\label{sec:introduction}Introduction}
+
+\dropcap{C}itation networks provide invaluable information for tracing historical developments in science. The idea of tracing scientific developments based on citation data goes back to Eugene Garfield, the founder of the Science Citation Index. In a report published more than 50 years ago, Garfield and his co-workers concluded that citation analysis is ``a valid and valuable means of creating accurate historical descriptions of scientific fields''~\cite{Garfield1964}. Garfield also developed a software tool called HistCite that visualizes citation networks of scientific publications. This tool supports users in tracing historical developments in science, a process sometimes referred to as \emph{algorithmic historiography} by Garfield~\cite{Garfield2003a,Garfield2003b,Garfield2004}. More recently, a software tool called CitNetExplorer~\cite{VanEck2014} was developed that has similar functionality but offers more flexibility in analyzing large-scale citation networks. Other software tools, most notably CiteSpace~\cite{Chen2006} and CRExplorer~\cite{Marx2014,Thor2016}, provide alternative approaches for tracing scientific developments based on citation data.
+
+Main path analysis, originally proposed by Hummon and Doreian~\cite{Hummon1989}, is a widely used technique for tracing historical developments in science. Given a citation network, main path analysis identifies one or more paths in the network that are considered to represent the most important scientific developments. Many variants and extensions of main path analysis have been proposed~\cite{Batagelj2003,LucioArias2008,Liu2012,Batagelj2014,Yeo2014,Liu2016,Tu2016}, not only for citation networks of scientific publications but also for patent citation networks~\cite{Verspagen2007,Park2017,Gwak2018,Kim2018,Kuan2018}.
+
+In this paper, we introduce a new approach for tracing historical developments in science based on citation networks. We propose the idea of intermediacy. Given two publications dealing with a specific research topic, an older publication and a more recent one, intermediacy can be used to identify publications that appear to play a major role in the historical development from the older to the more recent publication. These are publications that, based on citation links, are important in connecting the older and the more recent publication.
+
+Like main path analysis, intermediacy can be used to identify one or more citation paths between two publications. However, as we will make clear, there are fundamental differences between intermediacy and main path analysis. Most significantly, we will show that main path analysis tends to favor longer citation paths over shorter ones, whereas intermediacy has the opposite tendency. For the purpose of tracing historical developments in science, we argue that intermediacy yields better results than main path analysis.
+
+% \dropcap{A}t the interface between the fields of scientometrics and network science, many approaches have been developed for studying how the scientific literature in a certain research domain is structured and how it has developed over time. Clustering techniques, also known as community detection techniques, have been applied to scientometric networks in order to identify clusters of closely related publications or journals~\citep[e.g.,][]{Boyack2010,Rosvall2008,Waltman2012}. Such clusters may be considered to represent research areas or research topics. Clustering techniques have for instance been employed to identify emerging research areas~\cite{Small2014,Wang2018}. Visualization tools have been used to visually represent the structure and development of the literature in a research domain, focusing either on visualizations of scientometric networks in general~\cite{Chen2006,VanEck2010} or specifically on visualizations of citation networks of publications~\cite{Garfield2003,VanEck2014}. Centrality measures have also frequently been applied to scientometric networks, for instance to study the interdisciplinarity of journals~\cite{Leydesdorff2007} or the influence of authors~\cite{Newman2001}. Various approaches have also been introduced specifically for analyzing citation networks of publications. These for instance include main path analysis~\cite{Hummon1989} and transitive reduction~\cite{Clough2015}.
+
+% In this paper, we introduce a new approach for analyzing citation networks of publications. We propose an indicator called intermediacy. Given two publications dealing with a specific research topic, an older publication and a more recent one, intermediacy can be used to identify publications that seem to play a major role in the intellectual development from the older to the more recent publication. These are publications that, based on citation links, are important in connecting the older and the more recent publication.
+
+% Intermediacy somewhat resembles the idea of main path analysis, originally proposed by Hummon and Doreian~\cite{Hummon1989}. However, as we will make clear, there are fundamental differences between intermediacy and main path analysis. Most significantly, we will show that main path analysis tends to favor longer citation paths over shorter ones, whereas intermediacy has the opposite tendency. For the purpose of tracing intellectual developments in the scientific literature, we argue that intermediacy yields better results than main path analysis.
+
+% % % % % % % % % % % % %
+%
+%            INTERMEDIACY
+%
+% % % % % % % % % % % % %
+
+\section*{\label{sec:intermediacy}Intermediacy}
+
+\begin{sansmath}\begin{SCfigure*}[\sidecaptionrelwidth][t]
+    \centering%
+    \includegraphics[width=11.4cm]{examples}
+    \caption{(\textbf{A}) Parameter choice and (\textbf{B}) limit behavior.}
+    \label{fig:examples}
+\end{SCfigure*}\end{sansmath}
+
+Consider a directed acyclic graph $G = (V, E)$, where $V$ denotes the set of nodes of $G$ and $E$ denotes the set of edges of $G$. The edges are directed. A certain node $s \in V$ is referred to as the source, while another node $t \in V$ is referred to as the target. We assume that each node $v \in V$ is located on a path from source $s$ to the target $t$. We refer to such a path as a source-target path.
+
+\begin{definition}
+    Given a source $s$ and a target $t$, a path from $s$ to $t$ is called a \emph{source-target path}.
+\end{definition}
+
+Informally, the more important the role of a node $v \in V$ in connecting source $s$ to the target $t$, the higher the intermediacy of $v$. To define intermediacy in a formal way, we assume that each edge $e \in E$ is active with a certain probability. We assume the probability of being active to be the same for all edges $e \in E$. This probability is denoted by $p$. Based on the idea of active and inactive edges, the following definitions can be introduced.
+
+\begin{definition}
+    If all edges on a path are active, the path is called \emph{active}. Otherwise the path is called \emph{inactive}. If a node $v \in V$ is located on an active source-target path, the node is called \emph{active}. Otherwise the node is called \emph{inactive}.
+\end{definition}
+
+For two nodes $u, v \in V$, we use $X_{uv}$ to indicate whether there is an active path from node $u$ to node $v$ ($X_{uv} = 1$) or not ($X_{uv} = 0$). The probability that there is an active path from node $u$ to node $v$ is denoted by $\Pr(X_{uv} = 1)$. We use $X_{st}(v)$ to indicate whether there is an active source-target path that goes through node $v$ ($X_{st}(v) = 1$) or not ($X_{st}(v) = 0$). The probability that there is an active source-target path that goes through node $v$ is denoted by $\Pr(X_{st}(v) = 1) = \Pr(X_{sv} = 1)\Pr(X_{vt} = 1)$. Note that this probability equals the probability that node $v$ is active.
+
+Intermediacy can now be defined as follows.
+
+\begin{definition}
+    The \emph{intermediacy} $\phi_v$ of a node $v \in V$ equals the probability that $v$ is active, that is,
+    \begin{equation}
+        \phi_v = \Pr(X_{st}(v) = 1) = \Pr(X_{sv} = 1)\Pr(X_{vt} = 1).
+        \label{eq:decom}
+    \end{equation}
+\end{definition}
+
+We now present an analysis of the mathematical properties of intermediacy. We note that the proofs of the mathematical results provided below can be found in~\secref{proofs}.
+
+% % % % % % % % % % % % % %
+%
+%            Limit behavior
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:limit}Limit behavior}
+
+To get a better understanding of intermediacy, we study the behavior of intermediacy in two limit cases. We first consider the limit case in which the probability $p$ of an edge being active tends to $0$. We then consider the limit case in which the probability $p$ tends to $1$. In both cases, the ranking of the nodes in a graph based on intermediacy turns out to have a natural interpretation. The difference between the two cases is illustrated in~\subfigref{examples}{B}.
+
+Let $\ell_v$ denote the length of the shortest source-target path going through node $v \in V$. \theref{p0} presented below states that in the limit as the probability $p$ of an edge being active tends to $0$, the ranking of nodes based on intermediacy coincides with the ranking based on $\ell_v$, with nodes located on shorter source-target paths being more intermediate than nodes located on longer source-target paths.
+
+The intuition for this result is as follows. When the probability of an edge being active is very close to $0$, almost all edges are inactive. Consequently, almost all source-target paths are inactive as well. However, from a relative point of view, longer source-target paths are much more likely to be inactive than shorter source-target paths. This mean that, again from a relative point of view, nodes located on shorter source-target paths have a much higher probability to be active than nodes located on longer source-target paths (even though for all nodes this probability is close to $0$). Nodes located on shorter source-target paths therefore have a higher intermediacy than nodes located on longer source-target paths.
+
+\begin{theorem}
+    In the limit as the probability $p$ tends to $0$, $\ell_u < \ell_v$ implies $\phi_u > \phi_v$.
+    \label{the:p0}
+\end{theorem}
+
+Let $\sigma_v$ denote the number of edge independent source-target paths going through node $v \in V$. \theref{p1} presented below states that in the limit as the probability $p$ of an edge being active tends to $1$, the ranking of nodes based on intermediacy coincides with the ranking based on $\sigma_v$. The larger the number of edge independent source-target paths going through a node, the higher the intermediacy of the node.
+
+The intuition for this result is as follows. When the probability of an edge being active is very close to $1$, almost all edges are active. Consequently, almost all source-target paths are active as well, and so are almost all nodes. A node is inactive only if all source-target paths going through the node are inactive. If there are $\sigma$ edge independent source-target paths that go through a node, this means that the node can be inactive only if there are at least $\sigma$ inactive edges. Consider two nodes $u, v \in V$. Suppose that the number of edge independent source-target paths going through node $u$ is larger than the number of edge independent source-target paths going through node $v$. In order to be inactive, node $u$ then requires a larger number of inactive edges than node $v$. Since the probability of an edge being active is very close to $1$, this means that, from a relative point of view, node $u$ has a much lower probability of being inactive than node $v$ (even though for both nodes this probability is close to $0$). Hence, node $u$ has a higher intermediacy than node $v$. More generally, nodes located on a larger number of edge independent source-target paths have a higher intermediacy than nodes located on a smaller number of edge independent source-target paths.
+
+\begin{theorem}
+    In the limit as the probability $p$ tends to $1$, $\sigma_u > \sigma_v$ implies $\phi_u > \phi_v$.
+    \label{the:p1}
+\end{theorem}
+
+% % % % % % % % % % % % % %
+%
+%            Parameter choice
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:param}Parameter choice}
+
+Intermediacy has a free parameter for which one needs to choose an appropriate value. This parameter is the probability $p$ of an edge being active. The results presented above are concerned with the behavior of intermediacy in the limit cases in which the probability $p$ tends to either $0$ or $1$. \subfigref{examples}{A} provides some insight into the behavior of intermediacy for values of the probability $p$ that are in between these two extremes. The figure shows two graphs. In the left graph, there is a direct path from node $u$ to node $v$. There are no indirect paths. In this graph, the probability that there is an active path from $u$ to node $v$ equals $p$. In the right graph, there is no direct path from node $u$ to node $v$. However, there are $k$ indirect paths of length $2$. Each of these paths has a probability of $p^2$ of being active. Consequently, the probability that there is at least one active path from node $u$ to node $v$ equals $1 - (1 - p^2)^k$. The table shown in \subfigref{examples}{A} presents for different values of $k$ the value of $p$ for which the probability that there is an active path from node $u$ to node $v$ is the same in the left and the right graph. For instance, suppose that $k = 5$ and $p = 0.22$. Clearly, in the left graph, the probability that there is an active path from node $u$ to node $v$ then equals $0.22$. However, in the right graph, this probability also equals $0.22$, since $1 - (1 - p^2)^k = 0.22$. In other words, if the probability $p$ of an edge being active is set to $0.22$, a direct path between two nodes is considered equally strong as $5$ indirect paths of length $2$. Likewise, the table for instance indicates that for $p = 0.62$ a direct path between two nodes is considered equally strong as $2$ indirect paths of length $2$. Based on \subfigref{examples}{A}, one can set the probability $p$ to the value that one considers most appropriate for a particular analysis.
+
+% % % % % % % % % % % % % %
+%
+%            Addition & contraction
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:path}Path addition and path contraction}
+
+Next, we study two additional properties of intermediacy, the property of path addition and the property of path contraction. We show that both adding paths and contracting paths lead to an increase in intermediacy.
+
+We start by considering the property of path addition. We define path addition as follows.
+
+\begin{definition}
+    Consider a directed acyclic graph $G = (V, E)$ and two nodes $u, v \in V$ such that there does not exist a path from node $v$ to node $u$. \emph{Path addition} is the operation in which a new path from node $u$ to node $v$ is added. Let $\ell$ denote the length of the new path. If $\ell = 1$, an edge $(u, v)$ is added. If $\ell > 1$, nodes $w_1, \ldots, w_{\ell - 1}$ and edges $(u, w_1), (w_1, w_2), \ldots, (w_{\ell - 2}, w_{\ell - 1}), (w_{\ell - 1}, v)$ are added.
+\end{definition}
+
+This definition includes the condition that there does not exist a path from node $v$ to node $u$. This condition is needed to ensure that graph $G$ will remain acyclic after adding a path. The following theorem states that adding a path increases intermediacy.
+
+\begin{theorem}
+    Consider a directed acyclic graph $G = (V, E)$, a source $s \in V$, and a target $t \in V$. In addition, consider two nodes $u, v \in V$ such that there does not exist a path from node $v$ to node $u$. Adding a path from node $u$ to node $v$ increases the intermediacy $\phi_w$ of any node $w \in V$ located on a path from source $s$ to node $u$ or from node $v$ to the target $t$.
+    \label{the:add}
+\end{theorem}
+
+We note that the theorem does not depend on the probability $p$. Hence, adding a path always increases intermediacy, regardless of the value of $p$. To illustrate the theorem, consider~\subfigref{properties}{A} and~\subfigref{properties}{B}. The graph in~\subfigref{properties}{B} is identical to the one in~\subfigref{properties}{A} except that a path from node $u$ to node $v$ has been added. As can be seen, adding this path increases the intermediacy of nodes located between source $s$ and node $u$ or between node $v$ and the target $t$, including nodes $u$ and $v$ themselves. This reflects the basic intuition that, after a path from node $u$ to node $v$ has been added, going from source $s$ to target $t$ through nodes $u$ and $v$ has become 'easier' than it was before. This means that nodes located between source $s$ and node $u$ or between node $v$ and target $t$ have become more important in connecting the source and the target. Consequently, the intermediacy of these nodes has increased.
+
+\begin{sansmath}\begin{figure}[t]
+  \centering%
+  \includegraphics[width=\linewidth]{properties}
+  \caption{Illustration of the properties of path addition and path contraction. Comparing (\textbf{B}) to (\textbf{A}) shows how path addition increases intermediacy. Comparing (\textbf{C}) to (\textbf{B}) shows how path contraction increases intermediacy. For some nodes in (\textbf{A}), (\textbf{B}), and (\textbf{C}), the intermediacy is reported, calculated using a value of $0.7$ for the probability $p$.}
+  \label{fig:properties}
+\end{figure}\end{sansmath}
+
+We now consider the property of path contraction. We use $V_{uv}$ to denote the set of all nodes located on a path from node $u$ to node $v$, including nodes $u$ and $v$ themselves. Path contraction is then defined as follows.
+
+\begin{definition}
+    Consider a directed acyclic graph $G = (V, E)$ and two nodes $u, v \in V$ such that there exists at least one path from node $u$ to node $v$. \emph{Path contraction} is the operation in which all nodes in $V_{uv}$ are contracted. This means that the nodes in $V_{uv}$ are replaced by a new node $r$. Edges pointing from a node $w \notin V_{uv}$ to nodes in $V_{uv}$ are replaced by a single new edge $(w, r)$. Edges pointing from nodes in $V_{uv}$ to a node $w \notin V_{uv}$ are replaced by a single new edge $(r, w)$. Edges between nodes in $V_{uv}$ are removed.
+\end{definition}
+
+The following theorem states that contracting paths increases intermediacy.
+
+\begin{theorem}
+    Consider a directed acyclic graph $G = (V, E)$, a source $s \in V$, and a target $t \in V$. In addition, consider two nodes $u, v \in V$ such that there exists at least one path from node $u$ to node $v$ and such that nodes in $V_{uv}$ do not have neighbors outside $V_{uv}$ except for incoming neighbors of node $u$ and outgoing neighbors of node $v$. Contracting paths from node $u$ to node $v$ increases the intermediacy $\phi_w$ of any node $w \in V$ located on a path from source $s$ to node $u$ or from node $v$ to the target $t$.
+    \label{the:cont}
+\end{theorem}
+
+Like~\theref{add}, \theref{cont} does not depend on the probability $p$. Regardless of the value of $p$, contracting paths always increases intermediacy. \theref{cont} is illustrated in~\subfigref{properties}{B} and~\subfigref{properties}{C}. The graph in~\subfigref{properties}{C} is identical to the one in~\subfigref{properties}{B} except that paths from node $u$ to node $v$ have been contracted. As a result, there has been an increase in the intermediacy of nodes located between source $s$ and node $u$ or between node $v$ and the target $t$, including nodes $u$ and $v$ themselves (which have been contracted into a new node $r$). This reflects the basic intuition that, after paths from node $u$ to node $v$ have been contracted, going from source $s$ to target $t$ through nodes $u$ and $v$ has become 'easier' than it was before. In other words, nodes located on a path from source $s$ to target $t$ going through nodes $u$ and $v$ have become more important in connecting the source and the target, and hence the intermediacy of these nodes has increased.
+
+% % % % % % % % % % % % % %
+%
+%            Alternative approaches
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:alternative}Alternative approaches}
+
+How does intermediacy differ from alternative approaches? We consider two alternative approaches. One is main path analysis~\cite{Hummon1989}. This is the most commonly used approach for tracing the dissemination of scientific knowledge in citation networks. The other alternative approach is the expected path count approach. Like intermediacy, the expected path count approach distinguishes between active and inactive edges and focuses on active source-target paths.
+
+Consider the graph shown in~\subfigref{comparison}{A}. To get from source $s$ to the target $t$, one could take either a path going through nodes $u$ and $v$ or the path going through node $w$. Based on intermediacy, the latter path represents a stronger connection between the source and the target than the former one. This follows from the path contraction property.
+
+\begin{sansmath}\begin{figure}[b]
+  \centering%
+  \includegraphics[width=\linewidth]{comparison}
+  \caption{Comparison of intermediacy (\textbf{A}), main path analysis (\textbf{B}), and expected path count (\textbf{B}). For nodes $u$, $v$, and $w$, the intermediacy (\textbf{A}), path count (\textbf{B}), and expected path count (\textbf{C}) are reported, using a value of $0.85$ for the probability $p$ in the calculation of intermediacy and expected path count.}
+  \label{fig:comparison}
+\end{figure}\end{sansmath}
+
+Interestingly, main path analysis gives the opposite result, as can be seen in~\subfigref{comparison}{B}. For each edge, the figure shows the search path count, which is the number of source-target paths that make use of the edge. Because the search path counts of $(s, u)$ and $(v, t)$ are higher than the search path counts of $(s, w)$ and $(w, t)$, main path analysis favors paths going through nodes $u$ and $v$ over the path going through node $w$. This is exactly opposite to the result obtained using intermediacy. \subfigref{comparison}{B} makes clear that main path analysis yields outcomes that violate the path contraction property. Main path analysis tends to favor longer paths over shorter ones. For the purpose of identifying the publications that are most important in connecting an older and a more recent publication, we consider this behavior to be undesirable. We note that there are various variants of main path analysis. In~\subfigref{comparison}{B}, the variant based on search path counts is used. Other variants of main path analysis show similar undesirable behavior.
+
+The intermediacy of a node is defined as the probability that there exists at least one active source-target path that goes through the node. Instead of focusing on the probability of the existence of at least one active source-target path, one could also focus on the expected number of active source-target paths going through a node. This alternative approach, which we refer to as the expected path count approach, is illustrated in~\subfigref{comparison}{C}. As can be seen in the figure, nodes $u$ and $v$ have a higher expected path count than node $w$. Paths going through nodes $u$ and $v$ may therefore be favored over the path going through node $w$. \subfigref{comparison}{C} shows that, unlike intermediacy, the expected path count approach does not have the path contraction property. Depending on the probability $p$, contracting paths may cause expected path counts to decrease rather than increase. Because the expected path count approach does not have the path contraction property, we do not consider this approach to be a suitable alternative for intermediacy.
+
+% % % % % % % % % % % % %
+%
+%            EMPIRICAL
+%
+% % % % % % % % % % % % %
+
+\section*{\label{sec:empirical}Empirical analysis}
+
+We now present two cases that serve as empirical illustrations of the use of intermediacy. Case 1 deals with the topic of community detection and its relationship with scientometric research. This case was selected because we are well acquainted with the topic. Case 2 deals with the topic of peer review. This case is of interest because it was recently examined using main path analysis~\cite{Batagelj2017}. Hence, it enables us to demonstrate the key differences between intermediacy and main path analysis.
+
+% % % % % % % % % % % % % %
+%
+%            Case 1: Scientometrics
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:Q}Case 1: Community detection and scientometrics}
+
+\begin{sansmath}\begin{SCfigure*}[\sidecaptionrelwidth][t]
+  \centering%
+  \begin{minipage}{7.4cm}
+  	\hskip8pt\textbf{\textsf{\footnotesize A}}\hskip104pt\textbf{\textsf{\footnotesize B}}\\\vskip-8pt%
+    \includegraphics[width=0.45\linewidth]{phist_Q}\hskip0.075\linewidth
+    \includegraphics[width=0.45\linewidth]{distributions_Q}\\\vskip-12pt\hskip8pt\textbf{\textsf{\footnotesize C}}\hskip104pt\textbf{\textsf{\footnotesize D}}\\\vskip-6pt%
+    \includegraphics[width=0.466\linewidth]{spearman_Q}\hskip0.05\linewidth
+    \includegraphics[width=0.466\linewidth]{pearson_Q}%
+  \end{minipage}\hskip0.05\linewidth%
+  \begin{minipage}{4cm}
+    \vskip16pt\hskip16pt\textbf{\textsf{\footnotesize E}}\\\vskip-32pt%
+    \includegraphics[width=\linewidth]{example_Q}
+  \end{minipage}
+  \caption{High-level results for case 1. (\textbf{A})~Probability of the existence of an active source-target path as a function of the parameter~$p$ and (\textbf{B})~cumulative distribution of intermediacy scores for different values of $p$. Spearman~(\textbf{C}) and Pearson~(\textbf{D}) correlations between intermediacy scores for different values of $p$, citation counts, and reference counts. (\textbf{E})~Citation network of the top ten most intermediate publications for $p = 0.1$.}
+  \label{fig:Q}
+\end{SCfigure*}\end{sansmath}
+
+\begin{sansmath}\begin{table*}[b!]%
+  \caption{Top ten most intermediate publications in case 1 for $p = 0.1$.}
+  \begin{tabular}{rp{9.75cm}rrrrrrr}
+    & & \multicolumn{5}{c}{$p$} \\\cmidrule{3-7}
+    & & $0.1$ & $0.3$ & $0.5$ & $0.7$ & $0.9$ & cit. & ref. \\\midrule
+    $t$ & Newman \& Girvan (2004), Finding and evaluating community structure in networks, \textit{Phys.\ Rev.\ E} \textbf{69}(2), 026113. & $0.301$ & $0.992$ & $1.000$ & $1.000$ & $1.000$ & $468$ & $0$ \\
+    $s$ & Klavans \& Boyack (2017), Which type of citation analysis generates the most accurate taxonomy of scientific and technical knowledge?, \textit{J.\ Assoc.\ Inf.\ Sci.\ Tec.} \textbf{68}(4), 984-998. & $0.301$ & $0.992$ & $1.000$ & $1.000$ & $1.000$ & $0$ & $24$ \\\midrule
+    $1$ & Waltman \& Van Eck (2013), A smart local moving algorithm for large-scale modularity-based community detection, \textit{Eur.\ Phys.\ J.\ B} \textbf{86}, 471. & $0.061$ & $0.376$ & $0.656$ & $0.878$ & $0.988$ & $2$ & $27$ \\
+    $2$ & Waltman \& Van Eck (2012), A new methodology for constructing a publication-level classification system of science, \textit{J.\ Assoc.\ Inf.\ Sci.\ Tec.} \textbf{63}(12), 2378-2392. & $0.060$ & $0.695$ & $0.964$ & $0.999$ & $1.000$ & $15$ & $22$ \\
+    $3$ & Hric\etal~(2014), Community detection in networks: Structural communities versus ground truth, \textit{Phys.\ Rev.\ E} \textbf{90}(6), 062805. & $0.052$ & $0.300$ & $0.499$ & $0.700$ & $0.900$ & $1$ & $29$ \\
+    $4$ & Fortunato (2010), Community detection in graphs, \textit{Phys.\ Rep.} \textbf{486}(3-5), 75-174. & $0.037$ & $0.629$ & $0.972$ & $1.000$ & $1.000$ & $73$ & $154$ \\
+    $5$ & Newman (2006), Modularity and community structure in networks, \textit{P.\ Natl.\ Acad.\ Sci.\ USA} \textbf{103}(23), 8577-8582. & $0.035$ & $0.736$ & $0.979$ & $1.000$ & $1.000$ & $221$ & $8$ \\
+    $6$ & Ruiz-Castillo \& Waltman (2015), Field-normalized citation impact indicators using algorithmically constructed classification systems of science, \textit{J.\ Informetr.} \textbf{9}(1), 102-117. & $0.024$ & $0.360$ & $0.624$ & $0.847$ & $0.981$ & $2$ & $24$ \\
+    $7$ & Blondel\etal~(2008), Fast unfolding of communities in large networks, \textit{J.\ Stat.\ Mech.}, P10008. & $0.022$ & $0.836$ & $0.998$ & $1.000$ & $1.000$ & $78$ & $21$ \\
+    $8$ & Newman (2006), Finding community structure in networks using the eigenvectors of matrices, \textit{Phys.\ Rev.\ E} \textbf{74}(3), 036104. & $0.021$ & $0.851$ & $0.999$ & $1.000$ & $1.000$ & $138$ & $18$ \\
+    $9$ & Newman (2004), Fast algorithm for detecting community structure in networks, \textit{Phys.\ Rev.\ E} \textbf{69}(6), 066133. & $0.020$ & $0.296$ & $0.501$ & $0.700$ & $0.900$ & $246$ & $1$ \\
+    $10$ & Rosvall \& Bergstrom (2008), Maps of random walks on complex networks reveal community structure, \textit{P.\ Natl.\ Acad.\ Sci.\ USA} \textbf{105}(4), 1118-1123. & $0.020$ & $0.803$ & $0.994$ & $1.000$ & $1.000$ & $70$ & $10$ \\\bottomrule
+  \end{tabular}
+  \label{tbl:Q}
+\end{table*}\end{sansmath}
+
+We analyze how a method for community detection in networks ended up being used in the field of scientometrics to construct classification systems of scientific publications. In particular, we are interested in the development from Newman and Girvan (2004) to Klavans and Boyack (2017). These are our target and source publications. Newman and Girvan (2004) introduced a new metric for community detection in networks, known as modularity, while Klavans and Boyack (2017) compared different ways in which modularity-based approaches can be used to identify communities in citation networks.
+
+Our analysis relies on data from the Scopus database produced by Elsevier. We also considered the Web of Science database produced by Clarivate Analytics. However, many citation links relevant for our analysis turned out to be missing in Web of Science. There are also missing citation links in Scopus, but for Scopus the problem seemed less significant than for Web of Science. We therefore work with Scopus data. We refer to Van Eck and Waltman~\cite{VanEck2017} for a further discussion of the problem of missing citation links.
+
+In the Scopus database, we found $n = 64\,223$ publications that are located on a citation path between our source and target publications. In total, we identified $m = 280\,033$ citation links between these publications. This means that on average each publication has $k = 2m / n = 8.72$ citation links, counting both incoming and outgoing links. We used our Monte Carlo algorithm to calculate the intermediacy of each publication for different values of the parameter $p$.
+
+\figref{Q} presents some high-level results. The top-left plot shows how the probability of the existence of an active path between the source and target publications depends on the parameter $p$. This probability increases from zero for $p = 0$ to almost one starting from $p = 0.25$. The vertical line indicates the value $p = 1 / k$. At this value, traditional percolation theory for random graphs suggests that the probability that the source and target publications are connected becomes non-negligible~\cite{Newman2010}. When searching for a suitable value of $p$, the value $p = 1 / k$ suggested by percolation theory may serve as a reasonable starting point. In our case, this yields $p = 1 / 8.72 = 0.11$, resulting in a probability of about $0.40$ for the existence of an active source-target path.
+
+For five different values of the parameter $p$, the top-right plot shows the cumulative distribution of the intermediacy scores of our $n = 64\,223$ publications. As is to be expected, when $p$ is close to zero, intermediacy scores are extremely small. For instance, for $p = 0.1$, almost all intermediacy scores are below $10^{-6}$. On the other hand, when $p$ is getting close to one, intermediacy scores also approach one. For $p = 0.9$, for instance, there are hardly any intermediacy scores below $0.1$.
+
+\begin{SCfigure*}[\sidecaptionrelwidth][t]
+  \centering%
+  \begin{minipage}{7.4cm}
+  	\hskip8pt\textbf{\textsf{\footnotesize A}}\hskip104pt\textbf{\textsf{\footnotesize B}}\\\vskip-8pt%
+    \includegraphics[width=0.45\linewidth]{phist_peerrev}\hskip0.075\linewidth
+    \includegraphics[width=0.45\linewidth]{distributions_peerrev}\\\vskip-12pt\hskip8pt\textbf{\textsf{\footnotesize C}}\hskip104pt\textbf{\textsf{\footnotesize D}}\\\vskip-6pt%
+    \includegraphics[width=0.466\linewidth]{spearman_peerrev}\hskip0.05\linewidth
+    \includegraphics[width=0.466\linewidth]{pearson_peerrev}%
+  \end{minipage}\hskip0.05\linewidth%
+  \begin{minipage}{4cm}
+    \vskip16pt\hskip16pt\textbf{\textsf{\footnotesize E}}\\\vskip-32pt%
+    \includegraphics[width=\linewidth]{example_peerrev}
+  \end{minipage}
+  \caption{High-level results for case 2. (\textbf{A})~Probability of the existence of an active source-target path as a function of the parameter~$p$ and (\textbf{B})~cumulative distribution of intermediacy scores for different values of $p$. Spearman~(\textbf{C}) and Pearson~(\textbf{D}) correlations between intermediacy scores for different values of $p$, citation counts, and reference counts. (\textbf{E})~Citation network of the top ten most intermediate publications for $p = 0.1$.}
+  \label{fig:pr}
+\end{SCfigure*}
+
+The matrices in the bottom part of~\figref{Q} provide the correlations between the intermediacy scores obtained for five different values of the parameter $p$. Correlations with citation counts and reference counts are provided as well. (We use the term \emph{citation count} to refer to the number of incoming citation links of a publication, while we use the term \emph{reference count} to refer to the number of outgoing citation links of a publication. Only citation links located on a citation path between the source and target publications are counted.) The left matrix reports Spearman correlations, while the right matrix reports Pearson correlations. We consider intermediacy scores to be most useful from an ordinal (as opposed to a cardinal) perspective. From this point of view, Spearman correlations are more relevant than Pearson correlations, but for completeness we report both types of correlations. The Spearman correlations show that values of $0.3$, $0.5$, $0.7$, and $0.9$ for $p$ all yield fairly similar rankings of publications in terms of intermediacy. However, the ranking obtained for $p = 0.1$ is quite different. Pearson correlations tend to be lower than Spearman correlations. Hence, even when different values of $p$ yield similar rankings of publications, there usually does not exist a clear linear relationship between the intermediacy scores. Finally, regardless of the value of $p$, it turns out that intermediacy scores are not very strongly correlated with citation counts and reference counts.
+
+We now explore our results in more detail. Based on our expert knowledge of the topic under study, we found that the most useful results were obtained by setting the parameter $p$ equal to $0.1$. \tblref{Q} lists the ten publications with the highest intermediacy for $p = 0.1$. For each publication, the intermediacy is reported for five different values of $p$. In addition, the table also reports each publication’s citation count and reference count. \subfigref{Q}{C} shows the citation network of the ten most intermediate publications for $p = 0.1$.
+
+What do we learn from the results presented in~\tblref{Q} and \subfigref{Q}{C}? The two publications with the highest intermediacy (Waltman \& Van Eck, 2012, 2013) played a key role in introducing modularity-based approaches in the scientometric community. Waltman and Van Eck (2012) proposed the use of modularity-based approaches for constructing classification systems of scientific publications, while Waltman and Van Eck (2013) introduced an algorithm for implementing these modularity-based approaches. This algorithm can be seen as an improvement of the so-called Louvain algorithm introduced by Blondel\etal~(2008), which is also among the ten most intermediate publications. Most of the other publications in~\tblref{Q} and \subfigref{Q}{C} are classical publications on community detection in general and modularity in particular. This applies to the three publications by Newman and also to Rosvall and Bergstrom (2008) and Fortunato (2010). The publications by Newman all deal with modularity-based community detection. Rosvall and Bergstrom (2008) proposed an alternative approach to community detection. They applied their approach to a citation network of scientific journals, which explains the connection with the scientometric literature. Fortunato (2010) is a review of the literature on community detection. The intermediacy of this publication is probably strongly influenced by its large number of references. Hric\etal~(2014) is a more recent publication on community detection. This publication focuses on the challenges of evaluating the results produced by community detection methods. This issue is very relevant in a scientometric context, and therefore the publication was cited by our source publication (Klavans \& Boyack, 2017). Finally, there is one more scientometric publication in~\tblref{Q} and \subfigref{Q}{C}. This publication (Ruiz-Castillo \& Waltman, 2015) is one of the first studies presenting a scientometric application of classification systems of scientific publications constructed using a modularity-based approach. The publication was also cited by our source publication.
+
+The citation counts reported in~\tblref{Q} show that some publications, especially the more recent ones, have a high intermediacy even though they have been cited only a very limited number of times. This makes clear that a ranking of publications based on intermediacy is quite different from a citation-based ranking of publications. The publications in~\tblref{Q} that have a high intermediacy and a small number of citations do have a substantial number of references.
+
+% % % % % % % % % % % % % %
+%
+%            Case 2: Peer review
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:pr}Case 2: Peer review}
+
+\begin{sansmath}\begin{table*}%
+  \caption{Top ten most intermediate publications in case 2 for $p = 0.1$.}
+  \begin{tabular}{rp{9.75cm}rrrrrrr}
+    & & \multicolumn{5}{c}{$p$} \\\cmidrule{3-7}
+    & & $0.1$ & $0.3$ & $0.5$ & $0.7$ & $0.9$ & cit. & ref. \\\midrule
+    $t$ & Cole \& Cole (1967), Scientific output and recognition: A study in the operation of the reward system in science, \textit{Am.\ Sociol.\ Rev.} \textbf{32}(3), 377-390. & $0.048$ & $0.841$ & $0.995$ & $1.000$ & $1.000$ & $14$ & $0$ \\
+    $s$ & Garcia\etal~(2015), The author-editor game, \textit{Scientometrics} \textbf{104}(1), 361-380. & $0.048$ & $0.841$ & $0.995$ & $1.000$ & $1.000$ & $0$ & $8$ \\\midrule
+    $1$ & Lee\etal~(2013), Bias in peer review, \textit{J.\ Assoc.\ Inf.\ Sci.\ Tec.} \textbf{64}(1), 2-17. & $0.018$ & $0.510$ & $0.865$ & $0.986$ & $1.000$ & $5$ & $71$ \\
+    $2$ & Zuckerman \& Merton (1971), Patterns of evaluation in science: Institutionalisation, structure and functions of the referee system, \textit{Minerva} \textbf{9}(1), 66-100. & $0.016$ & $0.336$ & $0.622$ & $0.847$ & $0.981$ & $73$ & $2$ \\
+    $3$ & Campanario (1998), Peer review for journals as it stands today: Part 1, \textit{Sci.\ Commun.} \textbf{19}(3), 181-211. & $0.013$ & $0.592$ & $0.967$ & $0.999$ & $1.000$ & $23$ & $35$ \\
+    $4$ & Crane (1967), The gatekeepers of science: Some factors affecting the selection of articles for scientific journals, \textit{Am.\ Sociol.} \textbf{2}(4), 195-201. & $0.009$ & $0.270$ & $0.498$ & $0.700$ & $0.900$ & $34$ & $1$ \\
+    $5$ & Campanario (1998), Peer review for journals as it stands today: Part 2, \textit{Sci.\ Commun.} \textbf{19}(4), 277-306. & $0.009$ & $0.517$ & $0.952$ & $0.999$ & $1.000$ & $15$ & $30$ \\
+    $6$ & Gottfredson (1978), Evaluating psychological research reports: Dimensions, reliability, and correlates of quality judgments, \textit{Am.\ Psychol.} \textbf{33}(10), 920-934. & $0.008$ & $0.320$ & $0.622$ & $0.847$ & $0.981$ & $26$ & $2$ \\
+    $7$ & Bornmann (2011), Scientific peer review, \textit{Annu.\ Rev.\ Inform.\ Sci.} \textbf{45}(1), 197-245. & $0.008$ & $0.333$ & $0.776$ & $0.975$ & $1.000$ & $6$ & $71$ \\
+    $8$ & Bornmann (2012), The Hawthorne effect in journal peer review, \textit{Scientometrics} \textbf{91}(3), 857-862. & $0.007$ & $0.259$ & $0.500$ & $0.700$ & $0.900$ & $1$ & $20$ \\
+    $9$ & Bornmann (2014), Do we still need peer review? An argument for change, \textit{J.\ Assoc.\ Inf.\ Sci.\ Tec.} \textbf{65}(1), 209-213. & $0.007$ & $0.275$ & $0.500$ & $0.700$ & $0.900$ & $1$ & $17$ \\
+    $10$ & Merton (1968), The Matthew effect in science, \textit{Science} \textbf{159}(3810), 56-63. & $0.005$ & $0.243$ & $0.497$ & $0.701$ & $0.901$ & $29$ & $1$ \\\bottomrule
+  \end{tabular}
+  \label{tbl:pr}
+\end{table*}\end{sansmath}
+
+We now turn to case 2, in which we analyze the literature on peer review. The analysis is based on data from the Web of Science database. We make use of the same data that was also used in a recent paper by~Batagelj\etal~\cite{Batagelj2017}. The authors of this paper kindly made their data available to us.
+
+We started with a citation network of $45\,965$ publications dealing with peer review. This is the citation network that was labeled CiteAcy by~Batagelj\etal~\cite{Batagelj2017}. We selected Cole and Cole (1967) and Garcia\etal~(2015) as our target and source publications. The main path analysis carried out by~Batagelj\etal~\cite{Batagelj2017} suggests that these are central publications in the literature on peer review. For the purpose of our analysis, only publications located on a citation path between our source and target publications are of relevance. Other publications play no role in the analysis. We therefore restricted the analysis to the $n = 615$ publications located on a citation path from Garcia\etal~(2015) to Cole and Cole (1967). These publications are connected by $m = 3\,420$ citation links, resulting in an average of $k = 2m / n = 11.12$ citation links per publication. Like in case 1 discussed above, our Monte Carlo algorithm was used to calculate intermediacy scores for different values of the parameter $p$.
+
+\figref{pr} presents high-level results. These results are quite similar to the corresponding results for case 1, presented in~\figref{Q}. As can be seen in the top-left plot, percolation theory suggests a value of $1 / k = 1 / 11.12 = 0.09$ for the parameter $p$. This is close to the value of $0.11$ obtained in case 1. However, the probability of the existence of an active path between the source and target publications equals $0.03$, which is much lower than the probability of $0.40$ in case 1. Furthermore, intermediacy scores tend to be higher in case 2 than in case 1. This can be seen by comparing the top-right plot in~\figref{pr} to the corresponding plot in~\figref{Q}. We note that the former plot has a linear horizontal axis, while the horizontal axis in the latter plot is logarithmic.
+
+\tblref{pr} lists the ten publications with the highest intermediacy, where we use a value of $0.1$ for the parameter $p$, like in~\tblref{Q}. \subfigref{pr}{C} shows the citation network of the ten most intermediate publications. There are numerous paths in this citation network going from our source publication (Garcia\etal, 2015) to our target publication (Cole \& Cole, 1967). We regard these paths as the core paths between the source and target publications.
+
+Since our knowledge of the literature on peer review is limited, we do not provide an interpretation of the results obtained using intermediacy. Instead, we compare these results to results produced by main path analysis. More specifically, we compare the core paths shown in~\subfigref{pr}{C} to the results obtained by~Batagelj\etal~\cite{Batagelj2017} using main path analysis. Different variants of main path analysis were used by~Batagelj\etal~\cite{Batagelj2017}. Both using the original version of main path analysis~\cite{Hummon1989} and using a more recent variant~\cite{Liu2012}, the paths that were identified were rather lengthy, as can be seen in Figs.~9 and~10 in~Batagelj\etal~\cite{Batagelj2017}. The shortest paths included about $20$ publications. This confirms the fundamental difference between intermediacy and main path analysis. Main path analysis tends to favor longer paths over shorter ones, whereas intermediacy has the opposite tendency.
+
+% % % % % % % % % % % % %
+%
+%            DISCUSSION
+%
+% % % % % % % % % % % % %
+
+\section*{\label{sec:discussion}Discussion}
+
+Citation networks provide valuable information for analyzing the dissemination of scientific knowledge. The most commonly used approach for tracing scientific knowledge dissemination in citation networks is main path analysis~\cite{Hummon1989}. However, the idea of a main path is relatively poorly understood. The algorithmic definition of a main path is clear, but the underlying conceptual motivation remains somewhat obscure. As we have shown in this paper, main path analysis has the tendency to favor longer paths over shorter ones. We consider this to be a counterintuitive property that lacks a convincing justification.
+
+Intermediacy, introduced in this paper, offers an alternative to main path analysis. It provides a principled approach for identifying publications that appear to play a major role in the intellectual development from an older to a more recent publication. The older publication and the more recent one are referred to as the target and the source. Publications with a high intermediacy are important in connecting the source and the target publication in a citation network. As we have shown, intermediacy has two intuitively reasonable properties, referred to as path addition and path contraction. Because of the path contraction property, intermediacy tends to favor shorter paths over longer ones. This is a fundamental difference with main path analysis. Intermediacy also has a free parameter that can be used to fine-tune its behavior. This parameter enables interpolation between two extremes. In one extreme, intermediacy identifies publications located on a shortest path between the source and the target publication. In the other extreme, it identifies publications located on a large number of edge independent source-target paths.
+
+We have also tested intermediacy empirically. Two empirical analyses have been presented, one in which intermediacy was used to trace intellectual developments at the interface between the community detection and the scientometric literature and one in which intermediacy was applied to the literature on peer review. The first analysis has shown that intermediacy yields results that appear sensible from the point of view of a domain expert. The second analysis has provided an empirical illustration of the mathematical differences between intermediacy and main path analysis.
+
+There are various options for further research. First of all, a more extensive mathematical analysis of intermediacy can be carried out, possibly resulting in an axiomatic foundation for intermediacy. Intermediacy can also be generalized to weighted graphs. In a citation network, a citation link may for instance be weighed inversely proportional to the total number of incoming or outgoing citation links of a publication. The ideas underlying intermediacy may also be used to develop other types of indicators for graphs, such as an indicator of the connectedness of two nodes in a graph. In empirical analyses, intermediacy can be applied not only in citation networks of scientific publications, but for instance also in patent citation networks or in completely different types of networks, such as human mobility and migration networks, world trade networks, transportation networks, and passing networks in sports.
+
+% % % % % % % % % % % % %
+%
+%            METHODS
+%
+% % % % % % % % % % % % %
+
+\matmethods{
+
+% % % % % % % % % % % % % %
+%
+%            Proofs of theorems
+%
+% % % % % % % % % % % % % %
+
+\subsection*{\label{sec:proofs}Proofs}
+
+Below we provide the proofs of the theorems presented in the main text. We first need to introduce some additional notation. We use $\Pr(X_{uv})$ as a shorthand for $\Pr(X_{uv} = 1)$. To make explicit that this probability depends on a graph $G$, we write $\Pr(X_{uv} \mid G)$. Furthermore, we use $A_e$ to indicate whether an edge $e$ is active. Hence, $A_e = 1$ if edge $e$ is active and $A_e = 0$ if edge $e$ is not active.
+
+% \subsubsection*{\label{sec:proofslimit}Limit behavior}
+
+\begin{proof}[Proof of \theref{p0}]
+    Let $m = |E|$ denote the number of edges in the graph $G$. Suppose that the $m$ edges are split into two sets, one set of $M$ edges and another set of $m - M$ edges. The probability that the edges in the former set are all active while the edges in the latter set are all inactive equals
+    \begin{align*}
+        P_M &= p^M (1 - p)^{m - M}. \numberthis
+    \end{align*}
+    Consider a node $v \in V$. The shortest source-target path that goes through node $v$ has a length of $\ell_v$. This means that at least $\ell_v$ edges need to be active in order to obtain an active source-target path that goes through node $v$. Hence, the probability that there is an active source-target path that goes through node $v$ can be written as
+    \begin{align*}
+        \phi_v &= \sum_{i = \ell_v}^m n_{vi} P_i, \numberthis
+    \end{align*}
+    where $n_{vi} > 0$ for all $i = \ell_v, \dots, m$. Note that this probability equals the intermediacy of node $v$.
+    Now consider two nodes $u, v \in V$ with $\ell_u < \ell_v$. In the limit as $p$ tends to $0$, $\phi_u$ and $\phi_v$ both tend to $0$. However, they do so at different rates. More specifically, in the limit as $p$ tends to $0$, we have
+    \begin{align*}
+        \lim_{p \to 0} \phi_v / \phi_u &= \lim_{p \to 0} \frac{\sum_{i = \ell_v}^m n_{vi} P_i}{\sum_{i = \ell_u}^m n_{ui} P_i} \numberthis \\
+        &= \lim_{p \to 0} \frac{\sum_{i = \ell_v}^m n_{vi} P_i / P_{\ell_u}}{\sum_{i = \ell_u}^m n_{ui} P_i / P_{\ell_u}} \\
+        &= \lim_{p \to 0} \frac{\sum_{i = \ell_v}^m n_{vi} p^{i - \ell_u} (1 - p)^{\ell_u - i}}{\sum_{i = \ell_u}^m n_{ui} p^{i - \ell_u} (1 - p)^{\ell_u - i}} \\
+        &= 0 / n_{u\ell_u} \\
+        &= 0.
+    \end{align*}
+    Hence, in the limit as $p$ tends to $0$, $\phi_u > \phi_v$.
+\end{proof}
+
+\begin{proof}[Proof of \theref{p1}]
+    Let $m = |E|$ denote the number of edges in the graph $G$, and let $q$ denote the probability that an edge is inactive, that is, $q = 1 - p$. Suppose that the $m$ edges are split into two sets, one set of $M$ edges and another set of $m - M$ edges. The probability that the edges in the former set are all inactive while the edges in the latter set are all active equals
+    \begin{align*}
+        Q_M &= q^M (1 - q)^{m - M}. \numberthis
+    \end{align*}
+    Consider a node $v \in V$. There are $\sigma_v$ edge independent source-target paths that go through node $v$. This means that at least $\sigma_v$ edges need to be inactive in order for there to be no active source-target path that goes through node $v$. Hence, the probability that there is no active source-target path that goes through node $v$ can be written as
+    \begin{align*}
+        \Phi_v &= \sum_{i = \sigma_v}^m n_{vi} Q_i, \numberthis
+    \end{align*}
+    where $n_{vi} > 0$ for all $i = \sigma_v, \dots, m$. Note that the intermediacy of node $v$ equals $1$ minus this probability, that is, $\phi_v = 1 - \Phi_v$.
+    Now consider two nodes $u, v \in V$ with $\sigma_u > \sigma_v$. In the limit as $p$ tends to $1$, $\Phi_u$ and $\Phi_v$ both tend to $0$. However, they do so at different rates. More specifically, in the limit as $p$ tends to $1$, we have
+    \begin{align*}
+        \lim_{p \to 1} \Phi_u / \Phi_v &= \lim_{p \to 1} \frac{\sum_{i = \sigma_u}^m n_{ui} Q_i}{\sum_{i = \sigma_v}^m n_{vi} Q_i} \numberthis \\
+        &= \lim_{p \to 1} \frac{\sum_{i = \sigma_u}^m n_{ui} Q_i / Q_{\sigma_v}}{\sum_{i = \sigma_v}^m n_{vi} Q_i / Q_{\sigma_v}} \\
+        &= \lim_{p \to 1} \frac{\sum_{i = \sigma_u}^m n_{ui} q^{i - \sigma_v} (1 - q)^{\sigma_v - i}}{\sum_{i = \sigma_v}^m n_{vi} q^{i - \sigma_v} (1 - q)^{\sigma_v - i}} \\
+        &= 0 / n_{v\sigma_v} \\
+        &= 0.
+    \end{align*}
+    Hence, in the limit as $p$ tends to $1$, $\Phi_u < \Phi_v$, which implies that $\phi_u > \phi_v$.
+\end{proof}
+
+% \subsubsection*{\label{sec:proofspath}Path addition and path contraction}
+
+\begin{proof}[Proof of \theref{add}]
+    Suppose that node $w$ is located on a path from source $s$ to node $u$. Let $H$ denote the graph obtained after the path from node $u$ to node $v$ has been added, and let $E_{uv}$ denote the set of newly added edges. The intermediacy of node $w$ in graph $G$ can be factorized as $\phi_w(G) = \Pr(X_{sw} \mid G)\Pr(X_{wt} \mid G)$. Similarly, for graph $H$, we have $\phi_w(H) = \Pr(X_{sw} \mid H)\Pr(X_{wt} \mid H)$. Clearly, $\Pr(X_{sw} \mid G) = \Pr(X_{sw} \mid H)$, since the paths from node $s$ to node $w$ are identical in graphs $G$ and $H$. Furthermore, $\Pr(X_{wt} \mid G) = \Pr(X_{wt} \mid H \text{~and~} A_e = 0\!:\!\forall e \in E_{uv})$. Since $\Pr(X_{wt} \mid H \text{~and~} A_e = 0\!:\!\forall e \in E_{uv}) \leq \Pr(X_{wt} \mid H)$, it follows that $\Pr(X_{wt} \mid G) \leq \Pr(X_{wt} \mid H)$. This means that $\phi_w(G) \leq \phi_w(H)$.
+
+    An analogous proof can be given if node $w$ is located on a path from node $v$ to target $t$.
+\end{proof}
+
+\begin{proof}[Proof of \theref{cont}]
+    Suppose that node $w$ is located on a path from source $s$ to node $u$. Let $H$ denote the graph obtained after paths from node $u$ to node $v$ have been contracted, and let $E_{uv}$ denote the set of all edges between nodes in $V_{uv}$. The intermediacy of node $w$ in graph $G$ can be factorized as $\phi_w(G) = \Pr(X_{sw} \mid G)\Pr(X_{wt} \mid G)$. Similarly, for graph $H$, we have $\phi_w(H) = \Pr(X_{sw} \mid H)\Pr(X_{wt} \mid H)$. Clearly, $\Pr(X_{sw} \mid G) = \Pr(X_{sw} \mid H)$, since the paths from node $s$ to node $w$ are identical in graphs $G$ and $H$. Furthermore, because nodes in $V_{uv}$, except for nodes $u$ and $v$, do not have neighbors outside $V_{uv}$, we have $\Pr(X_{wt} \mid H) = \Pr(X_{wt} \mid G \text{~and~} A_e = 1\!:\!\forall e \in E_{uv})$. Since $\Pr(X_{wt} \mid G \text{~and~} A_e = 1\!:\!\forall e \in E_{uv}) \geq \Pr(X_{wt} \mid G)$, it follows that $\Pr(X_{wt} \mid H) \geq \Pr(X_{wt} \mid G)$. This means that $\phi_w(H) \geq \phi_w(G)$.
+
+    An analogous proof can be given if node $w$ is located on a path from node $v$ to target $t$.
+\end{proof}
+
+% % % % % % % % % % % % % %
+%
+%            Algorithms
+%
+% % % % % % % % % % % % % %
+
+\begin{sansmath}\begin{SCfigure*}[\sidecaptionrelwidth][t]
+    \centering%
+    \includegraphics[width=11.4cm]{algorithms}
+    \caption{Illustration of (\textbf{A}) the exact algorithm and (\textbf{A}) the Monte Carlo algorithm for $p = 0.7$.}
+    \label{fig:algorithms}
+\end{SCfigure*}\end{sansmath}
+
+\subsection*{\label{sec:algorithms}Algorithms}
+
+Intermediacy depends on the probability that there exists a path between two nodes in a graph. Determining this probability is known as the reliability problem. This problem is NP-hard~\cite{Ball1980}. Below we provide an outline of an exact algorithm for calculating intermediacy. Because of its exponential runtime, the exact algorithm can be used only in relatively small graphs. We therefore also propose a Monte Carlo algorithm that approximates intermediacy.
+
+\subsubsection*{\label{sec:algorithm}Exact algorithm}
+
+The exact algorithm is based on contraction and deletion of edges~\cite{Moskowitz1958}. Suppose we have a graph $G = (V, E)$. The probability that there exists a path between two nodes $u, v \in V$ can be written as
+\begin{equation}
+    \Pr(X_{uv} \mid G) = p\Pr(X_{uv} \mid G / e) + (1 - p)\Pr(X_{uv} \mid G - e),
+    \label{eq:recur}
+\end{equation}
+where $G / e$ denotes the contraction of an edge $e \in E$ and $G - e$ denotes the deletion of an edge $e \in E$. Edge contraction must respect reachability~\cite{Page1989}. \eqref{recur} yields a recursive algorithm for calculating $\Pr(X_{uv})$. For a node $v \in V$, this algorithm can be used to calculate $\Pr(X_{sv})$ and $\Pr(X_{vt})$. The intermediacy $\phi_v$ of node $v$ is then given by \eqref{decom}. We are usually interested in calculating the intermediacy of all nodes in a graph $G$, not just of one specific node. This can be performed efficiently by calculating $\Pr(X_{sv})$ and $\Pr(X_{vt})$ for all nodes $v \in V$ in a single recursion.
+
+The runtime of the exact algorithm is exponential in the number of edges $m$. The algorithm has a complexity of $\O(2^m)$. In the special case of a so-called series-parallel graph, the runtime of the algorithm can be reduced from exponential to polynomial~\cite{Misra1970}.
+
+\subsubsection*{\label{sec:montecarlo}Monte Carlo algorithm}
+
+The Monte Carlo algorithm is quite straightforward. Suppose we have a graph $G = (V, E)$ and we are interested in the intermediacy $\phi_v$ of a node $v \in V$. A subgraph $H$ can be obtained by sampling the edges in the graph $G$, where each edge $e \in E$ is sampled with probability $p$. Given a subgraph $H$, it can be determined whether in this subgraph node $v$ is located on a path from source $s$ to target $t$. We sample $N$ subgraphs $H_1, \ldots, H_N$. We then approximate the intermediacy of node $v$ by $\phi_v \approx \frac{1}{N}\sum_{i = 1}^N I_{st}(v \mid H_i)$, where $I_{st}(v \mid H_i)$ equals $1$ if there exists a path from source $s$ to target $t$ going through node $v$ in graph $H_i$ and $0$ otherwise.
+
+The Monte Carlo algorithm can be implemented efficiently by simultaneously sampling subgraphs and checking path existence. To do so, we perform a probabilistic depth first search. We maintain a stack of nodes that still need to be visited. We start by pushing source $s$ to the stack. We then keep popping nodes from the stack until the stack is empty. When a node $v$ has been popped from the stack, we determine for each of its outgoing edges whether the edge is active. An edge is active with probability $p$. If an edge $(v, u)$ is active and if node $u$ is not yet on the stack, then node $u$ is pushed to the stack. At some point, target $t$ may be reached, resulting in the identification of nodes that are located on a path from source $s$ to target $t$. This implementation of the Monte Carlo algorithm is especially fast for smaller values of the probability $p$. The runtime of the Monte Carlo algorithm is linear in the number of edges $m$.
+
+\subsubsection*{\label{sec:source}Source code}
+
+In this paper, we use a Java implementation of the Monte Carlo algorithm. The source code is available at \url{https://github.com/lovre/intermediacy}~\cite{intermediacy}.
+
+}
+
+\showmatmethods{}
+
+\acknow{This work has been supported in part by the Slovenian Research Agency under the programs P2-0359 and P5-0168, and by the European Union COST Action number CA15109.}
+
+\showacknow{}
+
+% % % % % % % % % % % % %
+%
+%            BIBLIOGRAPHY
+%
+% % % % % % % % % % % % %
+
+\bibliography{bibliography}
+
+\end{document}

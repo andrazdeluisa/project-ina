@@ -1,0 +1,66 @@
+\documentclass[tikzpicture]{standalone}
+
+\usepackage{../tikz-network}
+
+%p = 0.1
+%
+%-1.     1207	cits=12	phi=0.071692	"CARTWRIG_D(1956)63:277"
+%0.    13132	cits=0	phi=0.071692	"FORTUNAT_S(2016)659:1"
+%1.      343	cits=24	phi=0.021158	"FIENBERG_S(1985)80:51"
+%2.      261	cits=16	phi=0.018585	"DAVIS_J(1967)20:181"
+%3.     5520	cits=76	phi=0.016546	"FORTUNAT_S(2010)486:75"
+%4.     3079	cits=78	phi=0.012628	"NEWMAN_M(2003)45:167"
+%5.    10538	cits=12	phi=0.011165	"PEIXOTO_T(2014)4:011047"
+%6.     1602	cits=24	phi=0.009301	"SNIJDERS_T(1997)14:75"
+%7.      696	cits=13	phi=0.008776	"FAUST_K(1992)14:5"
+%8.     3802	cits=35	phi=0.008286	"BOCCALET_S(2006)424:175"
+%9.       31	cits=58	phi=0.008212	"BREIGER_R(1975)12:328"
+%10.     9183	cits=10	phi=0.008205	"PEIXOTO_T(2013)110:148701"
+
+\newcommand{\inode}[4]{\Vertex[x=#1,y=#2,size=0.5,color=white,label={\bf\Large #4}]{#3}}
+\newcommand{\hnode}[4]{\Vertex[x=#1,y=#2,size=1,color={255,139,0},RGB,label={\bf\LARGE #4}]{#3}}
+\newcommand{\stnode}[4]{\Vertex[x=#1,y=#2,size=1,color={27,72,105},opacity=0.5,RGB,label={\bf\LARGE #4}]{#3}}
+\SetEdgeStyle[Arrow=-{Latex[length=3mm]}]
+\newcommand{\dedge}[2]{\Edge[lw=1,color=black,Direct](#1)(#2)}
+
+\begin{document}
+	\begin{tikzpicture}
+  \stnode{0}{21}{v1207}{cartwrig d(1956)63:277}
+  \stnode{0}{0}{v13132}{fortunat s(2016)659:1}
+  \hnode{5}{15}{v343}{fienberg s(1985)80:51}
+  \hnode{-2}{19}{v261}{davis j(1967)20:181}
+  \hnode{-5}{5}{v5520}{fortunat s(2010)486:75}
+  \hnode{-5}{9}{v3079}{newman m(2003)45:167}
+  \hnode{0}{2}{v10538}{peixoto t(2014)4:011047}
+  \inode{-3}{11}{v1602}{snijders t(1997)14:75}
+  \inode{1}{13}{v696}{faust k(1992)14:5}
+  \inode{-7}{7}{v3802}{boccalet s(2006)424:175}
+  \inode{-5}{17}{v31}{breiger r(1975)12:328}
+  \inode{5}{4}{v9183}{peixoto t(2013)110:148701}
+  \dedge{v696}{v31}
+  \dedge{v1602}{v31}
+  \dedge{v1602}{v696}
+  \dedge{v1602}{v343}
+  \dedge{v5520}{v3802}
+  \dedge{v5520}{v3079}
+  \dedge{v5520}{v1602}
+  \dedge{v9183}{v696}
+  \dedge{v9183}{v343}
+  \dedge{v9183}{v5520}
+  \dedge{v10538}{v696}
+  \dedge{v10538}{v343}
+  \dedge{v10538}{v5520}
+  \dedge{v10538}{v9183}
+  \dedge{v13132}{v5520}
+  \dedge{v13132}{v10538}
+  \dedge{v13132}{v9183}
+  \dedge{v13132}{v1602}
+  \dedge{v3079}{v31}
+  \dedge{v3802}{v3079}
+  \dedge{v31}{v261}
+  \dedge{v343}{v31}
+  \dedge{v343}{v1207}
+  \dedge{v261}{v1207}
+\end{tikzpicture}
+\end{document}
+

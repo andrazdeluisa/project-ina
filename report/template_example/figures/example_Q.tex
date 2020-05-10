@@ -1,0 +1,84 @@
+\documentclass[tikzpicture]{standalone}
+
+\usepackage{../tikz-network}
+\usepackage{relsize}
+
+\definecolor{gray}{RGB}{66,66,66}
+\definecolor{blue}{RGB}{27,72,105}
+
+% p = 0.1
+
+%-1.       11	cits=468	phi=0.301043	Newman, MEJ, Finding and evaluating community structure in networks, Phys. Rev. E Stat. Nonlinear Soft Matter Phys. (2004)
+%0.  8610111	cits=0	phi=0.301043	Klavans, R, Which Type of Citation Analysis Generates the Most Accurate Taxonomy of Scientific and Technical Knowledge?, J. Assoc. Soc. Inf. Sci. Technol. (2017)
+%1.  3100005	cits=2	phi=0.060906	Waltman, L, A smart local moving algorithm for large-scale modularity-based community detection, Eur. Phys. J. B (2013)
+%2.  1919959	cits=15	phi=0.060006	Waltman, L, A new methodology for constructing a publication-level classification system of science, J. Am. Soc. Inf. Sci. Technol. (2012)
+%3.  4547506	cits=1	phi=0.051877	Hric, D, Community detection in networks: Structural communities versus ground truth, Phys. Rev. E Stat. Nonlinear Soft Matter Phys. (2014)
+%4.   201518	cits=73	phi=0.03713	Fortunato, S, Community detection in graphs, Phys. Rep. (2010)
+%5.      376	cits=221	phi=0.034988	Newman, MEJ, Modularity and community structure in networks, Proc. Natl. Acad. Sci. U. S. A. (2006)
+%6.  4948599	cits=2	phi=0.023871	Ruiz-Castillo, J, Field-normalized citation impact indicators using algorithmically constructed classification systems of science, J. Inf. (2015)
+%7.    35353	cits=78	phi=0.022225	Blondel, VD, Fast unfolding of communities in large networks, J. Stat. Mech. Theory Exp. (2008)
+%8.      724	cits=138	phi=0.021298	Newman, MEJ, Finding community structure in networks using the eigenvectors of matrices, Phys. Rev. E Stat. Nonlinear Soft Matter Phys. (2006)
+%9.       17	cits=246	phi=0.02028	Newman, MEJ, Fast algorithm for detecting community structure in networks, Phys. Rev. E Stat. Nonlinear Soft Matter Phys. (2004)
+%10.     9955	cits=70	phi=0.019635	Rosvall, M, Maps of random walks on complex networks reveal community structure, Proc. Natl. Acad. Sci. U. S. A. (2008)
+
+\newcommand{\inode}[4]{\Vertex[x=#1,y=#2,size=0.5,color=white,label=\textbf{\textsf{\Large #4}}]{#3}}
+\newcommand{\xnode}[5]{\Vertex[x=#1,y=#2,size=#5,color=white,label=\textbf{\textsf{\LARGE {\relscale{#5}#4}}}]{#3}}
+\newcommand{\hnode}[4]{\Vertex[x=#1,y=#2,size=1,color={255,139,0},RGB,label=\textbf{\textsf{\LARGE #4}}]{#3}}
+\newcommand{\stnode}[4]{\Vertex[x=#1,y=#2,size=1,color={27,72,105},opacity=0.5,RGB,label=\textbf{\textsf{\LARGE #4}}]{#3}}
+\SetEdgeStyle[Arrow=-{Latex[length=3mm]}]
+\newcommand{\dedge}[2]{\Edge[lw=1,color=gray,Direct](#1)(#2)}
+
+\begin{document}
+	\begin{tikzpicture}
+  \stnode{0}{1.25*15}{v11}{Newman (2004)}
+  \stnode{0}{1.25*0}{v8610111}{Klavans (2017)}
+  \xnode{0}{1.25*4}{v3100005}{Waltman (2013)}{1}
+  \xnode{-4}{1.25*6}{v1919959}{Waltman (2012)}{1}
+  \xnode{3}{1.25*3}{v4547506}{Hric (2014)}{0.9}
+  \xnode{4}{1.25*6}{v201518}{Fortunato (2010)}{0.8}
+  \xnode{0}{1.25*11.5}{v376}{Newman (2006)}{0.7}
+  \xnode{0}{1.25*2}{v4948599}{Ruiz-Castillo (2015)}{0.6}
+  \xnode{-4}{1.25*9}{v35353}{Blondel (2008)}{0.6}
+  \xnode{0}{1.25*10}{v724}{Newman (2006)}{0.6}
+  \xnode{0}{1.25*13}{v17}{Newman (2004)}{0.5}
+  \xnode{4}{1.25*9}{v9955}{Rosvall (2008)}{0.5}
+  \dedge{v17}{v11}
+  \dedge{v376}{v11}
+  \dedge{v376}{v17}
+  \dedge{v724}{v11}
+  \dedge{v724}{v17}
+  \dedge{v724}{v376}
+  \dedge{v9955}{v11}
+  \dedge{v9955}{v17}
+  \dedge{v35353}{v11}
+  \dedge{v35353}{v17}
+  \dedge{v35353}{v376}
+  \dedge{v35353}{v724}
+  \dedge{v201518}{v11}
+  \dedge{v201518}{v17}
+  \dedge{v201518}{v376}
+  \dedge{v201518}{v724}
+  \dedge{v201518}{v9955}
+  \dedge{v201518}{v35353}
+  \dedge{v1919959}{v11}
+  \dedge{v1919959}{v17}
+  \dedge{v1919959}{v9955}
+  \dedge{v1919959}{v35353}
+  \dedge{v3100005}{v11}
+  \dedge{v3100005}{v17}
+  \dedge{v3100005}{v376}
+  \dedge{v3100005}{v724}
+  \dedge{v3100005}{v1919959}
+  \dedge{v4547506}{v9955}
+  \dedge{v4547506}{v201518}
+  \dedge{v4948599}{v1919959}
+  \dedge{v4948599}{v3100005}
+  \dedge{v8610111}{v11}
+  \dedge{v8610111}{v376}
+  \dedge{v8610111}{v1919959}
+  \dedge{v8610111}{v3100005}
+  \dedge{v8610111}{v4547506}
+  \dedge{v8610111}{v4948599}
+\end{tikzpicture}
+\end{document}
+

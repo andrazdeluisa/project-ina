@@ -1,0 +1,82 @@
+\documentclass[tikzpicture]{standalone}
+
+\usepackage{../tikz-network}
+
+%p = 0.3
+%
+%-1.     1207	cits=12	phi=0.932611	"CARTWRIG_D(1956)63:277"
+%0.    13132	cits=0	phi=0.932611	"FORTUNAT_S(2016)659:1"
+%1.     5520	cits=76	phi=0.821693	"FORTUNAT_S(2010)486:75"
+%2.     6116	cits=32	phi=0.791221	"KARRER_B(2011)83:016107"
+%3.     5637	cits=29	phi=0.732083	"GOOD_B(2010)81:046106"
+%4.     7043	cits=13	phi=0.720255	"BALL_B(2011)84:036103"
+%5.      696	cits=13	phi=0.677454	"FAUST_K(1992)14:5"
+%6.     5250	cits=29	phi=0.67726	"LANCICHI_A(2009)80:056117"
+%7.     6957	cits=24	phi=0.674174	"DECELLE_A(2011)107:065701"
+%8.    10538	cits=12	phi=0.666718	"PEIXOTO_T(2014)4:011047"
+%9.     7204	cits=14	phi=0.664846	"DECELLE_A(2011)84:066106"
+%10.     9183	cits=10	phi=0.660776	"PEIXOTO_T(2013)110:148701"
+
+\newcommand{\inode}[4]{\Vertex[x=#1,y=#2,size=0.5,color=white,label={\bf\Large #4}]{#3}}
+\newcommand{\hnode}[4]{\Vertex[x=#1,y=#2,size=1,color={255,139,0},RGB,label={\bf\LARGE #4}]{#3}}
+\newcommand{\stnode}[4]{\Vertex[x=#1,y=#2,size=1,color={27,72,105},opacity=0.5,RGB,label={\bf\LARGE #4}]{#3}}
+\SetEdgeStyle[Arrow=-{Latex[length=3mm]}]
+\newcommand{\dedge}[2]{\Edge[lw=1,color=black,Direct](#1)(#2)}
+
+\begin{document}
+	\begin{tikzpicture}
+  \stnode{0}{17}{v1207}{cartwrig d(1956)63:277}
+  \stnode{0}{0}{v13132}{fortunat s(2016)659:1}
+  \hnode{-5}{13}{v5520}{fortunat s(2010)486:75}
+  \hnode{7}{7}{v6116}{karrer b(2011)83:016107}
+  \hnode{5}{13}{v5637}{good b(2010)81:046106}
+  \hnode{-7}{7}{v7043}{ball b(2011)84:036103}
+  \hnode{0}{15}{v696}{faust k(1992)14:5}
+  \inode{0}{11}{v5250}{lancichi a(2009)80:056117}
+  \inode{5}{9}{v6957}{decelle a(2011)107:065701}
+  \inode{5}{2}{v10538}{peixoto t(2014)4:011047}
+  \inode{-5}{9}{v7204}{decelle a(2011)84:066106}
+  \inode{-5}{3}{v9183}{peixoto t(2013)110:148701}
+  \dedge{v5637}{v5520}
+  \dedge{v6116}{v696}
+  \dedge{v6116}{v5520}
+  \dedge{v6957}{v5520}
+  \dedge{v6957}{v5637}
+  \dedge{v6957}{v6116}
+  \dedge{v7043}{v5520}
+  \dedge{v7043}{v5637}
+  \dedge{v7043}{v6116}
+  \dedge{v7043}{v5250}
+  \dedge{v7204}{v7043}
+  \dedge{v7204}{v6957}
+  \dedge{v7204}{v5520}
+  \dedge{v7204}{v5637}
+  \dedge{v7204}{v6116}
+  \dedge{v7204}{v5250}
+  \dedge{v9183}{v7043}
+  \dedge{v9183}{v7204}
+  \dedge{v9183}{v6957}
+  \dedge{v9183}{v696}
+  \dedge{v9183}{v5520}
+  \dedge{v9183}{v6116}
+  \dedge{v9183}{v5250}
+  \dedge{v10538}{v7043}
+  \dedge{v10538}{v7204}
+  \dedge{v10538}{v6957}
+  \dedge{v10538}{v696}
+  \dedge{v10538}{v5520}
+  \dedge{v10538}{v5637}
+  \dedge{v10538}{v6116}
+  \dedge{v10538}{v5250}
+  \dedge{v10538}{v9183}
+  \dedge{v13132}{v7043}
+  \dedge{v13132}{v6957}
+  \dedge{v13132}{v5520}
+  \dedge{v13132}{v5637}
+  \dedge{v13132}{v6116}
+  \dedge{v13132}{v5250}
+  \dedge{v13132}{v10538}
+  \dedge{v13132}{v9183}
+\end{tikzpicture}
+\end{document}
+

@@ -1,0 +1,58 @@
+
+The exact algorithm is based on implicit contraction and deletion of edges.
+The basis of this algorithm is the fact that the probability there is a path between two node $i$ and $j$ can be decomposed as follows
+\begin{equation}
+	\Pr(X_{ij} = 1 \mid G) = (1 - p) \Pr(X_{ij} = 1 \mid G/e) + p \Pr(X_{ij} = 1 \mid G - e)
+\label{eq:recursive_path_prob}
+\end{equation}
+where $G/e$ denotes contraction of edge $e$ and $G - e$ the deletion of edge $e$.
+\eqref{recursive_path_prob} yields a straightforward recursive method to calculate $\Pr(X_{ij} = 1)$ which can then easily be used to calculate $\Pr(X_{st}(i) = 1)$ using \eqref{decompose_intermediacy}.
+However, the probability that there is a path from $i$ to $j$ can also be used to calculate the probability there is a path from $i$ to a neighbour of $j$.
+In other words
+\begin{equation}
+	\Pr(X_{ij} = 1 \mid G) = \Pr(X_{ik} = 1 \mid G) \Pr(X_{kj} = 1 \mid G).
+	\label{eq:decompose_path_prob}
+\end{equation}
+Hence, we would like to use the fact that we can already calculate $\Pr(X_{ik} = 1 \mid G)$ to calculate $\Pr(X_{ij} = 1 \mid G)$ more efficiently.
+
+We can combine the two approaches in the following way.
+In Eq.~\eqref{recursive_path_prob} we used an arbitrary edge $e$.
+Rather than an arbitrary edge, let us use the edge $(ik)$.
+We then write
+\begin{equation}
+	\Pr(X_{ij} = 1 \mid G) = (1 - p) \Pr(X_{ij} = 1 \mid G/(ik)) + p \Pr(X_{ij} = 1 \mid G - (ik))
+\end{equation}
+Now observe that $\Pr(X_{ik} = 1 \mid G/(ik)) = 1$, and that $G/(ik)$ has a probability $(1 - p)$ of occuring.
+Hence, while calculating $\Pr(X_{ij} = 1 \mid G)$ we can also calculate $\Pr(X_{ik} = 1)$.
+
+Our exact algorithm will therefore work as follows.
+We are interested in the path probabilities $\Pr(X_{si} = 1)$ (and $\Pr(X_{it} = 1$) for all nodes $i$.
+Note that we will always contract to the source node.
+We will perform implicit contraction and deletion of edges, and we use (1) a set of contracted nodes; (2) a set of deleted edges; and (3) a set of contracted neighbour edges to keep track of this implicit contraction and deletion.
+Furthermore, we will keep track of the probability of the current state of contraction/deletion.
+Every time we contract a node (which had not been contracted yet), we can then update the probability $\Pr(X_{ik} = 1)$.
+
+\begin{algorithm}[bt]
+  \begin{algorithmic}[1]
+		\Function{Intermediacy}{Graph $G$, Source $s$, Target $t$}
+			\State $X_{s} \gets $ \Call{PathProbabilities}{$G$, $s$} 
+			\State $X_{t} \gets $ \Call{PathProbabilities}{$G^T$, $t$}
+			\State \Return $X_{s} X_{t}$ \Comment{Element-wise multiplication}
+		\EndFunction
+		\item[]
+		\Function{PathProbabilities}{Graph $G=(V,E)$, Source $s$, Probabilities $X=0$, ContractedEdges $N=\{ (s i) \in E \}$, ContractedVertices $V'=\emptyset$, ContractedEdges $E'=\emptyset$, StateProbability $q=1$}
+		\If{$N \neq \emptyset$}
+			\State $(i j) \gets N$.pop()
+			\If{$j \notin V'$}
+				\State $X_j \gets X_j + q (1 - p)$  \Comment{Add to probabilities}
+				\State $V'' \gets V' \cup j$ \Comment{Add node when contracting}
+				\State $N' \gets N \cup \{(j k) \in E \}$ \Comment{Add neighbour edges when contracting}
+			\EndIf
+			\State $E'' \gets E' \cup (i j)$
+			\State \Call{PathProbabilities}{$G$, $s$, $X$, $N'$, $V''$, $E'$, $q (1 - p)$} \Comment{Contract edge $(i j)$}
+			\State \Call{PathProbabilities}{$G$, $s$, $X$, $N$, $V'$, $E''$, $q p$} \Comment{Delete edge $(i j)$}
+		\EndIf
+		\State \Return $X$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
