@@ -407,6 +407,7 @@ INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvb8t.tfm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvr8t.tfm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvr8t.tfm
+INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmbx9.tfm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvb8t.tfm
 INPUT C:\Users\JKenda\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\helvetic\phvb8t.vf
@@ -439,6 +440,8 @@ INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-rm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-mathit.enc
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-ec.enc
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-mathsy.enc
+INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmbx9.pfb
+INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmbx9.pfb
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmmi9.pfb
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmmi9.pfb
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmr5.pfb
