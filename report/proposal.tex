@@ -82,7 +82,7 @@ A node centrality measure for classification of nodes with respect to their impo
 
 \section*{Methods and Data}
 
-\paragraph{}For this project we use the data gathered from SNAP \cite{github_graph}, 
+\paragraph{}For this project we use the data gathered from SNAP \cite{github-graph}, 
 which contains a social network of collaborators on Github up until August 2019. 
 The nodes of the network are Github users who starred popular machine learning and web development repositories 
 (only repositories with at least 10 stars are taken into account).
@@ -90,7 +90,7 @@ The edges of the network are their follower relationships. It is an undirected g
 
 We start by generating Lancichinetti–Fortunato–Radicchi benchmark graphs with planted communities.
 These graphs serve as testing networks for our project.
-First we find the communities within the network using various community detection algorithms, such as Louvain \cite{louvain}, Infomap \cite{infomap} and Label propagation. 
+First we find the communities within the network using various community detection algorithms, such as Louvain \cite{louvain}, Infomap \cite{infomap} and Label propagation \cite{Raghavan-2007}. 
 
 Since the Github network is a social network, the communities are not as well-defined and clearly seperated as is the case with Lancichinetti–Fortunato–Radicchi benchmark graphs.
 Because of this, we also require algorithms which allow for overlapping communities, 
