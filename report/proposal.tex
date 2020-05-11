@@ -27,7 +27,7 @@
 \correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: author.two\@email.com}
 
 % Keywords are not mandatory, but authors are strongly encouraged to provide them. If provided, please include two to five keywords, separated by the pipe symbol, e.g:
-\keywords{community $|$ robustness $|$ node centrality $|$ ...} 
+\keywords{communities $|$ robustness $|$ node centrality $|$} 
 
 \begin{abstract}
 Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
@@ -47,7 +47,7 @@ Please provide an abstract of no more than 250 words in a single paragraph. Abst
 This is true in all fields of science: biology, physics, mathematics and potentially even more so in computer science.
 With the advancements in technology and specifically the internet in the last couple of decades, 
 cooperation between researchers and innovators has never been easier.
-This is in large part due to Git (a rabmo kle ref?) and other similar programs (a je kle kakšna bolša beseda kot program?), 
+This is in large part due to Git and other version control systems, 
 which allow both researchers and software developers to interact and collaborate on projects with ease,
 in turn leading to faster learning, innovation and development of scientific and technological advancements.
 
@@ -63,15 +63,17 @@ we can then try to measure how "well connected" each community is.
 Using this measure as a criterion, we can then start looking for linchpins - 
 in this case nodes, which if removed, would destabilize the community structure of the network as much as possible.
 In the real world social network this means removing individuals that we think contribute most to the development of new ideas and projects.
-Not necessarily provide solutions themselves, but by connecting others and creating (or just being the core of) communities,
+Not necessarily provide solutions themselves, but by connecting others and creating (or just being the core of) communities, contribute to
 further technological advancements the most.
+
+In this paper we analyse the ability of several node centrality measures to highlight these crucial nodes for the robustness of the community structure in social networks.
 
 \section*{Related work}
 
 Node centrality:
-- bridgeness 
-- betweenness 
-- pagerank 
+- bridgeness \cite{Jensen_2015}
+- betweenness \cite{freeman}
+- pagerank \cite{pagerank}
 - community centrality \cite{Newman_2006}
 - shapley values centrality \cite{michalak}, \cite{narahari}
 
@@ -98,14 +100,6 @@ Benchmark networks:
 \section*{Discussion}
 
 \section*{Conclusion}
-
-\matmethods{...}
-
-\showmatmethods{} 
-
-\acknow{...}
-
-\showacknow{}
 
 % Bibliography
 \bibliography{biblio}
