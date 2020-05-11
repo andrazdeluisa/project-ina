@@ -1,0 +1,87 @@
+\documentclass[9pt,twocolumn,twoside,lineno]{pnas-new}
+% Use the lineno option to display guide line numbers if required.
+
+\templatetype{pnasresearcharticle}
+
+\title{Template for preparing your research report submission to PNAS using Overleaf}
+
+% Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
+\author[a,1]{Jan Kenda}
+\author[a,2]{Andraž De Luisa} 
+
+\affil[a]{University of Ljubljana, Faculty of Computer and Information Science, Ljubljana, Slovenia
+}
+\affil[1]{jk----@student.uni-lj.si}
+\affil[2]{ad9366@student.uni-lj.si}
+
+% Please give the surname of the lead author for the running footer
+\leadauthor{Lead author last name} 
+
+% Please add here a significance statement to explain the relevance of your work
+\significancestatement{}
+
+% Please include corresponding author, author contribution and author declaration information
+\authorcontributions{Please provide details of author contributions here.}
+\authordeclaration{Please declare any conflict of interest here.}
+\equalauthors{\textsuperscript{1}A.O.(Author One) and A.T. (Author Two) contributed equally to this work (remove if not applicable).}
+\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: author.two\@email.com}
+
+% Keywords are not mandatory, but authors are strongly encouraged to provide them. If provided, please include two to five keywords, separated by the pipe symbol, e.g:
+\keywords{Community $|$ robustness $|$ node centrality $|$ ...} 
+
+\begin{abstract}
+Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
+\end{abstract}
+
+\dates{This manuscript was compiled on \today}
+\doi{\url{www.pnas.org/cgi/doi/10.1073/pnas.XXXXXXXXXX}}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{firststyle}
+\ifthenelse{\boolean{shortarticle}}{\ifthenelse{\boolean{singlecolumn}}{\abscontentformatted}{\abscontent}}{}
+
+% If your first paragraph (i.e. with the \dropcap) contains a list environment (quote, quotation, theorem, definition, enumerate, itemize...), the line after the list may have some extra indentation. If this is the case, add \parshape=0 to the end of the list environment.
+\dropcap{T}his PNAS journal template is provided to help you write your work in the correct journal format.  Instructions for use are provided below. 
+
+Note: please start your introduction without including the word ``Introduction'' as a section heading (except for math articles in the Physical Sciences section); this heading is implied in the first paragraphs. 
+
+\section*{Related work}
+
+Node centrality:
+- bridgeness 
+- betweenness 
+- pagerank 
+- community centrality \cite{Newman_2006}
+- shapley values centrality \cite{michalak}, \cite{narahari}
+
+Community robustness:
+- conductance \cite{kannan-vempala}
+- pairwise similarity \cite{bommarito-katz}
+- variation of information in perturbed networks \cite{karrer-levina}
+
+Benchmark networks:
+- Girvan-Newman \cite{girvan-newman}
+- Lancichinetti (LFR) \cite{lfr}
+- Affiliation graph model \cite{yang-leskovec}
+
+\section*{Methods}
+
+- find communities in network (if we don't know them)
+- rank nodes with respect to a selected measure
+- remove best nodes
+- compare new communities with previous
+
+
+\section*{Results}
+
+\section*{Discussion}
+
+\section*{Conclusion}
+
+
+% Bibliography
+\bibliography{biblio}
+
+\end{document}
