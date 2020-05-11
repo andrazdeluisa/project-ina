@@ -85,4 +85,8 @@ Palla G, Derényi I, Farkas I, Vicsek T (2005) Uncovering the overlapping
   community structure of complex networks in nature and society.
 \newblock {\em Nature} 435:814--818.
 
+\bibitem{leskovec-lang-mahoney}
+Leskovec J, Lang KJ, Mahoney MW (2010) Empirical comparison of algorithms for
+  network community detection.
+
 \end{thebibliography}
