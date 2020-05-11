@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{github_graph}
+Leskovec J (year?) Github stargazers
+  (\url{https://snap.stanford.edu/data/github_stargazers.html}).
+\newblock Accessed: 2020-5-10.
+
 \bibitem{lfr}
 Lancichinetti A, Fortunato S, Radicchi F (2008) Benchmark graphs for testing
   community detection algorithms.
