@@ -75,22 +75,10 @@ In this paper we analyse the ability of several node centrality measures to high
 
 \section*{Related work}
 
-Node centrality:
-- bridgeness \cite{Jensen_2015}
-- betweenness \cite{freeman}
-- pagerank \cite{pagerank}
-- community centrality \cite{Newman_2006}
-- shapley values centrality \cite{michalak}, \cite{narahari}
+A lot of work has been done in detecting communities and evaluating their stability. A quantification of the community structure robustness and the method for its computation is proposed by Karrer et al.~ \cite{karrer-levina}. A somehow similar approach to statistical validation of such partitions of networks into communities has been analysed by Carissimo et al.~ \cite{carissimo}. Both are based on random perturbations of edges in the network, analysing the induced changes in the community structure. Our approach differs from them, as instead on the edges we are more concerned on the importance of single nodes in the communities. 
 
-Community robustness:
-- conductance \cite{kannan-vempala}
-- pairwise similarity \cite{bommarito-katz}
-- variation of information in perturbed networks \cite{karrer-levina}
+A node centrality measure for classification of nodes with respect to their importance in the community structure, based on the spectrum of the adjacency matrix, has been recently proposed by Wang et al.~ \cite{wang-yang-fan}.
 
-Benchmark networks:
-- Girvan-Newman \cite{girvan-newman}
-- Lancichinetti (LFR) \cite{lfr}
-- Affiliation graph model \cite{yang-leskovec}
 
 \section*{Methods and Data}
 
