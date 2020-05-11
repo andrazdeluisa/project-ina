@@ -9,7 +9,7 @@
 \author[a]{Jan Kenda}
 \author[b]{Andraž De Luisa} 
 
-\affil[a]{University of Ljubljana, Faculty of Computer and Information Science, Ljubljana, Slovenia, jk----@student.uni-lj.si
+\affil[a]{University of Ljubljana, Faculty of Computer and Information Science, Ljubljana, Slovenia, jk3977@student.uni-lj.si
 }
 \affil[b]{University of Ljubljana, Faculty of Computer and Information Science, Ljubljana, Slovenia, ad9366@student.uni-lj.si
 }
@@ -30,7 +30,12 @@
 \keywords{communities $|$ robustness $|$ node centrality $|$} 
 
 \begin{abstract}
-Please provide an abstract of no more than 250 words in a single paragraph. Abstracts should explain to the general reader the major contributions of the article. References in the abstract must be cited in full within the abstract itself and cited in the text.
+    Social networks maintain a fragile equilibrium that can be easily disturbed by removing key individuals called linchpins. 
+    This is no less true in the network of Github collaborators (need ref). 
+    We propose a measure of robustness for social networks, that how vulnerable a network is when it comes to losing a percentage of its key individuals.
+    The measure is based on the stability of the community structure of the social network, 
+    specifically by finding individuals which we deem most important to maintaining the current social structure.
+    We first evaluate the performance of the proposed methods on Lancichinetti–Fortunato–Radicchi benchmark graphs (add ref) and then on the Github network itself.
 \end{abstract}
 
 \dates{This manuscript was compiled on \today}
@@ -87,15 +92,45 @@ Benchmark networks:
 - Lancichinetti (LFR) \cite{lfr}
 - Affiliation graph model \cite{yang-leskovec}
 
-\section*{Methods}
+\section*{Methods and Data}
 
-- find communities in network (if we don't know them)
-- rank nodes with respect to a selected measure
-- remove best nodes
-- compare new communities with previous
+\paragraph{}For this project we use the data gathered from (add ref, by Jure Leskovec), 
+which contains a social network of collaborators on Github up until August 2019. 
+The nodes of the network are Github users who starred popular machine learning and web development repositories 
+(only repositories with at least 10 stars are taken into account).
+The edges of the network are their follower relationships. It is an undirected graph.
 
+We start by generating Lancichinetti–Fortunato–Radicchi benchmark graphs with planted communities.
+These graphs serve as testing networks for our project.
+First we find the communities within the network using various community detection algorithms, such as (add algs, refs). 
+
+Since the Github network is a social network, the communities are not as well-defined and clearly seperated as is the case with Lancichinetti–Fortunato–Radicchi benchmark graphs.
+Because of this, we also require algorithms which allow for overlapping communties, 
+such as Demon(add ref), which uses a local-first approach to community discovery, or if overlaps are significant,
+a $k$-clique algorithm based on (add ref), which works by locating all cliques in the network and then identifying communities based on the analysis of the clique-clique overlap matrix.
+
+The next step is measuring how well-connected and stable a community actually is.
+The most basic method would be to simply measure the number of connections between nodes within a community and compare it with the number of connections that lead outside of it.
+A more advanced method is to measure the conductance (add ref) of communities of the network. 
+
+Once we have this, we start looking for key nodes that, if removed, would most disturb the community structure of the network.
+We do this by employing various methods of node importance.
+We use different methods of node centrality, namely degree centrality, closeness, bridgeness, betweenness, pagerank and eigenvector centrality.
+We also consider if, instead of removing nodes, we could just remove edges (e.g. sever the collaboration between two users).
+For this we calculate the edge betweenness centrality measure for all edges.
+
+Using the above measures as criteria, we start testing by removing the nodes (or edges) with the highest measure and 
+again calculating the conductance of communities, 
+or even testing if some communities fall apart due to the removal on an individual.
+As such we aim to find the best measure, or even a combination of measures, to identify key linchpin individuals, 
+without which the community structure of a social network would change drastically.
 
 \section*{Results}
+
+Using the aforementioned measure of finding linchpins, we aim to provide a measure of robustness for social networks,
+with regards to how well they can handle the loss of key individuals. 
+We will test this measure by removing the top $1\%$, $5\%$, $10\%$, $15\%$ and $20\%$ of individuals (based on our selected measure of node importance) 
+and seeing how well the community structure of the graph holds.
 
 \section*{Discussion}
 

@@ -1,0 +1,65 @@
+\begin{thebibliography}{10}
+
+\bibitem{Jensen_2015}
+Jensen P, et~al. (2015) Detecting global bridges in networks.
+\newblock {\em Journal of Complex Networks} 4(3):319–329.
+
+\bibitem{freeman}
+Freeman LC (1977) A set of measures of centrality based on betweenness.
+\newblock {\em Sociometry} 40(1):35--41.
+
+\bibitem{pagerank}
+Page L, Brin S, Motwani R, Winograd T (1999) The pagerank citation ranking:
+  Bringing order to the web., (Stanford InfoLab), Technical Report 1999-66.
+\newblock Previous number = SIDL-WP-1999-0120.
+
+\bibitem{Newman_2006}
+Newman MEJ (2006) Finding community structure in networks using the
+  eigenvectors of matrices.
+\newblock {\em Physical Review E} 74(3).
+
+\bibitem{michalak}
+Michalak T, Aadithya K, Szczepański P, Ravindran B, Jennings N (2014)
+  Efficient computation of the shapley value for game-theoretic network
+  centrality.
+\newblock {\em Journal of Artificial Intelligence Research} 46.
+
+\bibitem{narahari}
+Narahari Y (2011) A shapley value-based approach to discover influential nodes
+  in social networks.
+\newblock {\em Automation Science and Engineering, IEEE Transactions on} 8:130
+  -- 147.
+
+\bibitem{kannan-vempala}
+Kannan R, Vempala S, Vetta A (2004) On clusterings: Good, bad and spectral.
+\newblock {\em J. ACM} 51(3):497–515.
+
+\bibitem{bommarito-katz}
+II MJB, Katz DM, Zelner JL (2010) On the stability of community detection
+  algorithms on longitudinal citation data.
+\newblock {\em Procedia - Social and Behavioral Sciences} 4:26 -- 37.
+\newblock Applications of Social Network Analysis.
+
+\bibitem{karrer-levina}
+Karrer B, Levina E, Newman MEJ (2008) Robustness of community structure in
+  networks.
+\newblock {\em Physical Review E} 77(4).
+
+\bibitem{girvan-newman}
+Girvan M, Newman MEJ (2002) Community structure in social and biological
+  networks.
+\newblock {\em Proceedings of the National Academy of Sciences}
+  99(12):7821--7826.
+
+\bibitem{lfr}
+Lancichinetti A, Fortunato S, Radicchi F (2008) Benchmark graphs for testing
+  community detection algorithms.
+\newblock {\em Phys. Rev. E} 78(4):046110.
+
+\bibitem{yang-leskovec}
+{Yang} J, {Leskovec} J (2012) Community-affiliation graph model for overlapping
+  network community detection in {\em 2012 IEEE 12th International Conference
+  on Data Mining}.
+\newblock pp. 1170--1175.
+
+\end{thebibliography}
