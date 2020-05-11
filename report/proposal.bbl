@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{lfr}
+Lancichinetti A, Fortunato S, Radicchi F (2008) Benchmark graphs for testing
+  community detection algorithms.
+\newblock {\em Phys. Rev. E} 78(4):046110.
+
 \bibitem{Jensen_2015}
 Jensen P, et~al. (2015) Detecting global bridges in networks.
 \newblock {\em Journal of Complex Networks} 4(3):319–329.
@@ -51,15 +56,28 @@ Girvan M, Newman MEJ (2002) Community structure in social and biological
 \newblock {\em Proceedings of the National Academy of Sciences}
   99(12):7821--7826.
 
-\bibitem{lfr}
-Lancichinetti A, Fortunato S, Radicchi F (2008) Benchmark graphs for testing
-  community detection algorithms.
-\newblock {\em Phys. Rev. E} 78(4):046110.
-
 \bibitem{yang-leskovec}
 {Yang} J, {Leskovec} J (2012) Community-affiliation graph model for overlapping
   network community detection in {\em 2012 IEEE 12th International Conference
   on Data Mining}.
 \newblock pp. 1170--1175.
+
+\bibitem{Demon}
+Coscia M, Rossetti G, Giannotti F, Pedreschi D (2012) Demon: A local-first
+  discovery method for overlapping communities in {\em Proceedings of the 18th
+  ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  KDD ’12.
+\newblock (Association for Computing Machinery, New York, NY, USA), p.
+  615–623.
+
+\bibitem{coscia-rossetti}
+Coscia M, Rossetti G, Giannotti F, Pedreschi D (2014) Uncovering hierarchical
+  and overlapping communities with a local-first approach.
+\newblock {\em ACM Trans. Knowl. Discov. Data} 9(1).
+
+\bibitem{palla-derenyi}
+Palla G, Derényi I, Farkas I, Vicsek T (2005) Uncovering the overlapping
+  community structure of complex networks in nature and society.
+\newblock {\em Nature} 435:814--818.
 
 \end{thebibliography}

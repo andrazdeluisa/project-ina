@@ -1,12 +1,12 @@
 # Fdb version 3
-["bibtex proposal"] 1589196640 "proposal.aux" "proposal.bbl" "proposal" 1589196644
+["bibtex proposal"] 1589197524 "proposal.aux" "proposal.bbl" "proposal" 1589197594
   "./pnas-new.bst" 1589196562 18420 f4cae81468d1d89557fc8e3d071edc7b ""
   "biblio.bib" 1589196562 9726 5f9f1ef16945927d2bd76516be5bfc52 ""
-  "proposal.aux" 1589196643 1797 bd5a7a5f8213e90aeb9c31dece78c43c "pdflatex"
+  "proposal.aux" 1589197594 2002 402b746443913d20745df262b7a5ec58 "pdflatex"
   (generated)
-  "proposal.bbl"
   "proposal.blg"
-["pdflatex"] 1589196640 "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.tex" "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.pdf" "proposal" 1589196644
+  "proposal.bbl"
+["pdflatex"] 1589197590 "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.tex" "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.pdf" "proposal" 1589197594
   "C:/Users/JKenda/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt" 1567361164 4245594 81b624dbd12d2a4c4d4114dd3828fbcc ""
   "C:/Users/JKenda/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map" 1589150069 83779 e71ee75ff93fc04ad0084bef16b98711 ""
   "C:/Users/JKenda/AppData/Local/Programs/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc" 1458477487 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -253,20 +253,20 @@
   "C:/Users/JKenda/AppData/Local/Programs/MiKTeX 2.9/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/JKenda/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xcolor/xcolor.sty" 1463135581 57049 34128738f682d033422ca125f82e5d62 ""
   "C:/Users/JKenda/AppData/Local/Programs/MiKTeX 2.9/tex/latex/xifthen/xifthen.sty" 1448278036 5689 1bfa68243e89a54479e7d0580773c57e ""
-  "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.aux" 1589196643 1797 bd5a7a5f8213e90aeb9c31dece78c43c ""
-  "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.tex" 1589196631 8657 14112b40a17af6c67b8f3ca35d5f469c ""
+  "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.aux" 1589197594 2002 402b746443913d20745df262b7a5ec58 ""
+  "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.tex" 1589197589 8670 3256b79b30ab72c15048ef01e405ad1d ""
   "newfloat.sty" 1589196562 29688 4aba56144ead46f9aef76000a36a663a ""
   "pnas-new.bst" 1589196562 18420 f4cae81468d1d89557fc8e3d071edc7b ""
   "pnas-new.cls" 1589196562 15194 57c15ddf09045c834d5fb6c8222ea080 ""
   "pnasresearcharticle.sty" 1589196562 1314 7aec1205c12893a1c87d36790c959b86 ""
-  "proposal.aux" 1589196643 1797 bd5a7a5f8213e90aeb9c31dece78c43c "pdflatex"
-  "proposal.bbl" 1589196640 2375 20e531777a7f117de05dc4e50564296a "bibtex proposal"
-  "proposal.out" 1589196643 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "proposal.tex" 1589196631 8657 14112b40a17af6c67b8f3ca35d5f469c ""
+  "proposal.aux" 1589197594 2002 402b746443913d20745df262b7a5ec58 "pdflatex"
+  "proposal.bbl" 1589197524 3158 6330c756d4a10fc01c46da8f5ffab99f "bibtex proposal"
+  "proposal.out" 1589197593 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "proposal.tex" 1589197589 8670 3256b79b30ab72c15048ef01e405ad1d ""
   (generated)
-  "proposal.pdf"
-  "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.log"
-  "proposal.aux"
   "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.pdf"
-  "proposal.out"
+  "proposal.aux"
+  "d:/Program Files/Projekti/INA/newnewnew/project-ina/report/proposal.log"
   "proposal.log"
+  "proposal.out"
+  "proposal.pdf"
