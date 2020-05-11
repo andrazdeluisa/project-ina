@@ -3,7 +3,7 @@
 
 \templatetype{pnasresearcharticle}
 
-\title{Template for preparing your research report submission to PNAS using Overleaf}
+\title{The stability and robustness of the Github network of collaborators}
 
 % Use letters for affiliations, numbers to show equal authorship (if applicable) and to indicate the corresponding author
 \author[a]{Jan Kenda}
@@ -21,21 +21,21 @@
 %\significancestatement{}
 
 % Please include corresponding author, author contribution and author declaration information
-\authorcontributions{Please provide details of author contributions here.}
-\authordeclaration{Please declare any conflict of interest here.}
-\equalauthors{\textsuperscript{1}A.O.(Author One) and A.T. (Author Two) contributed equally to this work (remove if not applicable).}
-\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: author.two\@email.com}
+%\authorcontributions{Please provide details of author contributions here.}
+%\authordeclaration{Please declare any conflict of interest here.}
+\equalauthors{\textsuperscript{1}Both authors contributed equally to this work.}
+%\correspondingauthor{\textsuperscript{2}To whom correspondence should be addressed. E-mail: author.two\@email.com}
 
 % Keywords are not mandatory, but authors are strongly encouraged to provide them. If provided, please include two to five keywords, separated by the pipe symbol, e.g:
-\keywords{communities $|$ robustness $|$ node centrality $|$} 
+\keywords{networks $|$ communities $|$ robustness $|$ node centrality} 
 
 \begin{abstract}
     Social networks maintain a fragile equilibrium that can be easily disturbed by removing key individuals called linchpins. 
-    This is no less true in the network of Github collaborators (need ref). 
+    This is no less true in the network of Github collaborators \cite{github_graph}. 
     We propose a measure of robustness for social networks, that how vulnerable a network is when it comes to losing a percentage of its key individuals.
     The measure is based on the stability of the community structure of the social network, 
     specifically by finding individuals which we deem most important to maintaining the current social structure.
-    We first evaluate the performance of the proposed methods on Lancichinetti–Fortunato–Radicchi benchmark graphs (add ref) and then on the Github network itself.
+    We first evaluate the performance of the proposed methods on Lancichinetti–Fortunato–Radicchi benchmark graphs \cite{lfr} and then on the Github network itself.
 \end{abstract}
 
 \dates{This manuscript was compiled on \today}
@@ -82,7 +82,7 @@ A node centrality measure for classification of nodes with respect to their impo
 
 \section*{Methods and Data}
 
-\paragraph{}For this project we use the data gathered from (add ref, by Jure Leskovec), 
+\paragraph{}For this project we use the data gathered from SNAP \cite{github_graph}, 
 which contains a social network of collaborators on Github up until August 2019. 
 The nodes of the network are Github users who starred popular machine learning and web development repositories 
 (only repositories with at least 10 stars are taken into account).
@@ -90,16 +90,16 @@ The edges of the network are their follower relationships. It is an undirected g
 
 We start by generating Lancichinetti–Fortunato–Radicchi benchmark graphs with planted communities.
 These graphs serve as testing networks for our project.
-First we find the communities within the network using various community detection algorithms, such as (add algs, refs). 
+First we find the communities within the network using various community detection algorithms, such as Louvain \cite{louvain}, Infomap \cite{infomap} and Label propagation. 
 
 Since the Github network is a social network, the communities are not as well-defined and clearly seperated as is the case with Lancichinetti–Fortunato–Radicchi benchmark graphs.
 Because of this, we also require algorithms which allow for overlapping communties, 
-such as Demon(add ref), which uses a local-first approach to community discovery, or if overlaps are significant,
-a $k$-clique algorithm based on (add ref), which works by locating all cliques in the network and then identifying communities based on the analysis of the clique-clique overlap matrix.
+such as Demon \cite{Demon}, \cite{coscia-rossetti}, which uses a local-first approach to community discovery, or if overlaps are significant,
+a $k$-clique algorithm based on \cite{palla-derenyi}, which works by locating all cliques in the network and then identifying communities based on the analysis of the clique-clique overlap matrix.
 
 The next step is measuring how well-connected and stable a community actually is.
 The most basic method would be to simply measure the number of connections between nodes within a community and compare it with the number of connections that lead outside of it.
-A more advanced method is to measure the conductance (add ref) of communities of the network. 
+A more advanced method is to measure the conductance \cite{leskovec-lang-mahoney} of communities of the network. 
 
 Once we have this, we start looking for key nodes that, if removed, would most disturb the community structure of the network.
 We do this by employing various methods of node importance.
