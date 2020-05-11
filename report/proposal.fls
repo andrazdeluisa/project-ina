@@ -338,10 +338,6 @@ INPUT d:\Program Files\Projekti\INA\newnewnew\project-ina\report\proposal.out
 INPUT d:\Program Files\Projekti\INA\newnewnew\project-ina\report\proposal.out
 OUTPUT d:\Program Files\Projekti\INA\newnewnew\project-ina\report\proposal.out
 OUTPUT d:\Program Files\Projekti\INA\newnewnew\project-ina\report\proposal.pdf
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\draftwatermark\draftwatermark.sty
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\draftwatermark\draftwatermark.sty
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\everypage\everypage.sty
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\everypage\everypage.sty
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ragged2e\ragged2e.sty
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ragged2e\ragged2e.sty
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\ragged2e\ragged2e.sty
@@ -411,15 +407,7 @@ INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvb8t.tfm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvr8t.tfm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvr8t.tfm
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmr17.tfm
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1bch.fd
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\psnfss\t1bch.fd
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\bitstrea\charter\bchb8t.tfm
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\microtype\mt-bch.cfg
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\tex\latex\microtype\mt-bch.cfg
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvb8t.tfm
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\bitstrea\charter\bchb8t.vf
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\bitstrea\charter\bchb8r.tfm
 INPUT C:\Users\JKenda\AppData\Local\MiKTeX\2.9\pdftex\config\pdftex.map
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\vf\adobe\helvetic\phvb8t.vf
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\tfm\adobe\helvetic\phvb8r.tfm
@@ -451,8 +439,6 @@ INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-rm
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-mathit.enc
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-ec.enc
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\enc\dvips\lm\lm-mathsy.enc
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\bitstrea\charter\bchb8a.pfb
-INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\bitstrea\charter\bchb8a.pfb
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmmi9.pfb
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmmi9.pfb
 INPUT C:\Users\JKenda\AppData\Local\Programs\MiKTeX 2.9\fonts\type1\public\lm\lmr5.pfb
