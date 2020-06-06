@@ -5,6 +5,7 @@ from cdlib import algorithms
 import infomap as imp
 from collections import defaultdict
 import cdlib as cdl
+from copy import deepcopy
 
 
 def deg_distr(graph):
@@ -88,14 +89,15 @@ def remove(graph, centralities, community, remove_pct):
     N = graph.number_of_nodes()
     conductances = []
     for centrality in centralities:
-        rank = ranking(centrality(graph))
-        cond = [np.mean(community(graph).conductance(summary=False))]
+        graph_tmp = deepcopy(graph)
+        rank = ranking(centrality(graph_tmp))
+        cond = [np.mean(community(graph_tmp).conductance(summary=False))]
         for pct in remove_pct:
             nr_rem = int(pct * N)
             nodes = rank[:nr_rem]
             # warning: better to remove nodes from a copy of the graph
-            graph.remove_nodes_from(nodes)
-            cond_pct = np.mean(community(graph).conductance(summary=False))
+            graph_tmp.remove_nodes_from(nodes)
+            cond_pct = np.mean(community(graph_tmp).conductance(summary=False))
             cond.append(cond_pct)
         conductances.append(cond)
     return conductances
