@@ -7,7 +7,7 @@ from collections import defaultdict
 import cdlib as cdl
 from copy import deepcopy
 import random
-from scipy.integrate import quad
+from time import time
 
 
 def deg_distr(graph):
@@ -39,19 +39,9 @@ def infomap(graph):
     return cdl.NodeClustering(coms_infomap, graph, "Infomap", method_parameters={"":""})
 
 
-def conductance(graph, partition):
-    # doesn't work on graphs with removed nodes (indexing)
-    partition = list(map(list, partition))
-    sum_deg = [sum(list(map(lambda x: x[1], list(graph.degree(comm))))) for comm in partition[:10]]
-    cuts = [nx.cut_size(graph, comm) for comm in partition[:10]]
-    return [cuts[i] / sum_deg[i] for i in range(len(partition[:10]))]
-
-
 github = nx.read_adjlist('networks/musae_git_edges.adj', create_using=nx.Graph, nodetype=int, delimiter=',')
 random.seed(123)
-print(len(max(nx.connected_components(github), key=len)) / 37700)
-github_sub = github.subgraph(random.sample(list(github.nodes), 1000))
-print(len(max(nx.connected_components(github_sub), key=len)) / 1000)
+
 
 '''
 print(nx.info(github))
@@ -165,38 +155,49 @@ def remove_and_keep(graph, centralities, community, remove_pct):
 #print(remove_and_keep(github, [nx.degree_centrality, nx.eigenvector_centrality], algorithms.demon, remove_pct))
 
 
-def find_best_nodes(graph):
-    partitions = [algorithms.demon(graph, epsilon=eps) for eps in [0.25, 0.5, 0.75]]
+def find_best_nodes(graph, top_nodes):
+    partitions = [algorithms.demon(graph, epsilon=eps) for eps in [0.25]]#, 0.5, 0.75]]
     node_importance_area = defaultdict()
     node_importance_abs = defaultdict()
-    sizes, conductances = ncp(partitions)
-    x = range(2, max(sizes) + 1)
-    for node in graph.nodes:
+    sizes = []
+    conductances = []
+    edges_insides = []
+    communities = []
+    for partition in partitions:
+        sizes += partition.size(summary=False)
+        conductances += partition.conductance(summary=False)
+        edges_insides += partition.edges_inside(summary=False)
+        communities += partition.communities
+    sizes_ncp, conductances_ncp = ncp(sizes, conductances)
+    with open('src/github_ncp.csv', 'w+') as file:
+        file.write('Size,Cond\n')
+        for i in range(len(sizes_ncp)):
+            file.write(','.join([str(sizes_ncp[i]), str(conductances_ncp[i]) + '\n']))
+        file.close()
+    plt.plot(sizes_ncp, conductances_ncp)
+    plt.savefig('report/github.png', dpi=600)
+    plt.close()
+    x = range(2, max(sizes_ncp) + 1)
+    values = np.interp(x, sizes_ncp, conductances_ncp)
+    print('partitions computed')
+    i = 0
+    for node in top_nodes:
         # remove node 
         # compute conductance
         # compute ncp curve
-        # compute difference in ncp
         # define node importance (area between ncp or abs diff)
-        graph_tmp = nx.Graph(graph)
-        graph_tmp.remove_nodes_from([node])
-        partitions_tmp = deepcopy(partitions)
-        for part in partitions_tmp:
-            part.graph = graph_tmp
-        sizes_tmp, conductances_tmp = ncp(partitions_tmp)
-        f = lambda x: np.interp(x, sizes_tmp, conductances_tmp) - np.interp(x, sizes, conductances)
-        node_importance_area[node] = quad(f, x[0], x[-1], points=x)
-        node_importance_abs[node] = np.sign(max(f(x)) + min(f(x))) * max(abs(f(x)))
-    return node_importance_area, node_importance_abs
+        sizes_tmp, conductances_tmp = conductance_fast(graph, communities, conductances, edges_insides, node)
+        sizes_tmp, conductances_tmp = ncp(sizes_tmp, conductances_tmp)
+        f_values = np.interp(x, sizes_tmp, conductances_tmp) - values
+        node_importance_area[node] = integrate(f_values)
+        node_importance_abs[node] = np.sign(max(f_values) + min(f_values)) * max(abs(f_values))
+        i += 1
+        if i % 10 == 0:
+            print(i)
+    return dict(node_importance_area), dict(node_importance_abs)
 
 
-def ncp(partitions):
-    sizes = []
-    conductances = []
-    for partition in partitions:
-        conductance = partition.conductance(summary=False)
-        size = list(map(len, partition.communities))
-        sizes += size
-        conductances += conductance
+def ncp(sizes, conductances):
     sizes_ord = np.argsort(sizes)
     sizes = list(np.array(sizes)[sizes_ord])
     conductances = list(np.array(conductances)[sizes_ord])
@@ -210,39 +211,67 @@ def ncp(partitions):
             j += 1
         res.append(min(tmp))
         i = j
-    return np.unique(sizes), res
+    return list(np.unique(sizes)), res
+
+
+def integrate(y):
+    area = 0
+    for i in range(len(y) - 1):
+        if y[i] * y[i+1] == 0:
+            area += y[i] / 2 + y[i+1] / 2
+        elif np.sign(y[i]) == np.sign(y[i+1]):
+            area += np.sign(y[i]) * (min(abs(y[i]), abs(y[i+1])) + abs(y[i+1] - y[i]) / 2)
+        else:
+            t = - y[i] / (y[i+1] - y[i])
+            area += (t * y[i] + (1 - t) * y[i+1]) / 2
+    return area
+
+
+def conductance_fast(graph, communities, conductances, edges_inside, node):
+    sizes = list(map(len, communities))
+    contained = [node in comm for comm in communities]
+    neighb = list(graph.neighbors(node))
+    contained_neighb = []
+    edges_outside = []
+    corr_conductances = [0 for _ in range(len(conductances))]
+    for j in neighb:
+        contained_neighb.append([j in comm for comm in communities])
+    for i in range(len(conductances)):
+        edges_outside.append(sum(np.array(graph.degree)[communities[i], 1]))
+        edges_outside[i] -= 2 * edges_inside[i]
+        n_inside = 0
+        for tmp in contained_neighb:
+            if tmp[i]:
+                n_inside += 1
+        if contained[i]:
+            sizes[i] -= 1
+            n_outside = len(neighb) - n_inside
+        else:
+            n_outside = n_inside
+            n_inside = 0
+        corr_conductances[i] = (conductances[i] * (2 * edges_inside[i] + edges_outside[i]) - n_outside) / (2 * (edges_inside[i] - n_inside) + edges_outside[i] - n_outside)
+    return sizes, corr_conductances
 
 
 #karate = nx.karate_club_graph()
-#partition = algorithms.demon(karate, epsilon=0.9, min_com_size=1)
-#sizes, cond = ncp(partition)
-#plt.plot(sizes, cond)
-#plt.show()
-partition2 = [algorithms.demon(github_sub, epsilon=eps, min_com_size=3) for eps in [0.25, 0.5, 0.75]]
-sizes2, cond2 = ncp(partition2)
-plt.plot(sizes2, cond2)
-plt.show()
+#dolphins = nx.read_adjlist('networks/dolphins.adj', create_using=nx.Graph, nodetype=int)
 
-areas, diffs = find_best_nodes(github_sub)
-# unfreeze graph
-# remove nodes
-# compute conductances
-github_sub2 = nx.Graph(github_sub)
-github_sub2.remove_nodes_from(random.sample(list(github_sub2.nodes), 50))
-partition3 = deepcopy(partition2)
-for part in partition3:
-    part.graph = github_sub2
-sizes3, cond3 = ncp(partition3)
-plt.plot(sizes2, cond2)
-plt.plot(sizes3, cond3)
-plt.show()
+eig = nx.eigenvector_centrality(github)
+rank = ranking(eig)
 
-x = list(range(2, max(sizes3) + 1))
-y = np.interp(x, sizes3, cond3)
-y1 = np.interp(x, sizes2, cond2)
-f = lambda x: np.interp(x, sizes3, cond3) - np.interp(x, sizes2, cond2)
-area3 = quad(f, x[0], x[-1], points=x)
-abs_diff = max(abs(f(range(2,15))))
+start = time()
+areas, diffs = find_best_nodes(github, rank[:100])
+print(time() - start)
 
+with open('src/tmp.csv', 'w+') as file:
+    file.write('Id,Area,Diff\n')
+    for i in rank[:100]:
+        file.write(','.join([str(i), str(areas[i]), str(diffs[i])]) + '\n')
+    file.close()
+
+# if graph is full (contains all nodes from 1 to n)
+areas = list(areas.values())
+diffs = list(diffs.values())
+# otherwise take care of indexing in dict (built-in centrality measures also return dict)
 
 print('birc')
