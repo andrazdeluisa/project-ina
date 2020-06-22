@@ -226,8 +226,19 @@ i.e. keeping the network connected. For this purpose we will need to further exp
 
 We also believe that other measures of community quality are needed to evaluate the robustness of the network's partition into communities, hence we will also measure the average conductances, modularities and out-degree fractions.
 
-
-
+\begin{table}
+    \centering
+    \begin{tabular}{|l|l|l|l|l|}
+        \hline
+        & Eigenv & Degree & Area & Abs diff \\ \hline
+        Eigenv & 1 & 0.9811 & -0.6318 & -0.2168 \\ \hline
+        Degree & 0.9811 & 1 & -0.7200 & -0.2435 \\ \hline
+        Area & -0.6318 & -0.7200 & 1 & 0.5160 \\ \hline
+        Abs diff & -0.2168 & -0.2435 & 0.5160 & 1 \\ \hline
+    \end{tabular}
+    \caption{Correlations between centrality measures}
+    \label{tab:cor}
+\end{table}
 
 
 % Bibliography
