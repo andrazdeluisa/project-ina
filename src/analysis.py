@@ -70,6 +70,7 @@ print(np.corrcoef(abs_list, deg_list))
 print(np.corrcoef(area, deg_list))
 print(np.corrcoef(deg_list, eig_list))
 
+'''
 partitions = [algorithms.demon(github, epsilon=eps) for eps in [0.25, 0.5]]
 sizes = []
 conductances = []
@@ -102,5 +103,6 @@ plt.title('NCP plot before and after removing top 20 nodes')
 plt.legend(['Original network', 'Removed nodes'])
 plt.savefig('report/github2.png', dpi=600)
 plt.close()
+'''
 
 print('birc')
